@@ -1,0 +1,74 @@
+html, body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  height: 100%; /* Ensure the body takes up the full height of the viewport */
+} 
+
+
+body {
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: flex-start; /* Align content to the top */
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto; /* Enables vertical scrolling when content exceeds the viewport height */
+}
+
+#postspage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  max-width: 600px; /* Limit the width of the content */
+  padding: 20px;
+  margin: 50px auto; /* Adjust this value to change the space outside the container */
+  box-sizing: border-box;
+}
+
+#topnav{
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+
+#topnav-text{
+  color: black;
+  font-weight: bold;
+  margin: 0 10px;
+
+}
+
+#content {
+  width: 100%; /* Ensures the content spans the full width */
+  margin-top: 60px; /* To ensure content doesn't overlap with topnav */
+  text-align: left; /* Keeps content text aligned to the left */
+}
+
+
+h1{
+  align-self: flex-start; /* Aligns the <h1> to the left within #homepage */
+  margin-top: 0;
+  margin-bottom: 10px;
+  width: 100%; /* Ensures it spans the full width of the container */
+}
+
+
+footer{
+  font-size: 13px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+#ig-icon, #lnkdin-icon{
+  color:black;
+  font-size: 20px;
+  margin: 0 5px;
+}
