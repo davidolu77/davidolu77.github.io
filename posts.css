@@ -38,6 +38,20 @@ body {
   margin-bottom: 20px;
 }
 
+/* Default state of navigation links */
+.nav-link {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+/* State when a link is active (clicked) */
+.nav-link.active {
+  text-decoration: none !important; /* Remove underline */
+  color: grey !important; /* Change text color */
+}
+
 
 #topnav-text{
   color: black;
@@ -46,9 +60,10 @@ body {
 
 }
 
+
 #content {
   width: 100%; /* Ensures the content spans the full width */
-  margin-top: 60px; /* To ensure content doesn't overlap with topnav */
+  margin-top: 20px; /* To ensure content doesn't overlap with topnav */
   text-align: left; /* Keeps content text aligned to the left */
 }
 

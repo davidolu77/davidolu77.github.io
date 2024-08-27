@@ -15,14 +15,13 @@
             <h1>Home</h1>
             <!--Top Navigation-->
             <nav id="topnav">
-                <a href="index.html" id="topnav-text">Home</a>
-                <a href="posts.html" id="topnav-text">Posts</a>
-                <a href="projects.html" id=topnav-text>Projects</a>
+                <a href="index.html" class="nav-link" id="topnav-text">Home</a>
+                <a href="posts.html" class="nav-link" id="topnav-text">Posts</a>
+                <a href="projects.html" class="nav-link" id=topnav-text>Projects</a>
             </nav>
             
             <div class="content">
             <p>Hey, I'm David!</p>
-            <p>This website was made on 07/03/2023</p>
             </div>
 
 
@@ -38,6 +37,7 @@
 
             <footer>
                 <p>2024 © David Olutunde</p>
+                <p>Section made on 07/03/2023</p>
                 <p>Last edited on 25/08/2024</p>
                 <a href="https://www.instagram.com/davidd.olu/"><i id="ig-icon" class="fa fa-instagram"></i></a>
                 <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
@@ -45,6 +45,21 @@
                     
             </footer>
         </div>
-
+<script>
+    // Select all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    // Function to handle the click event
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Remove the 'active' class from all links
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            
+            // Add the 'active' class to the clicked link
+            this.classList.add('active');
+        });
+    });
+</script>
+                
     </body>
 </html>
