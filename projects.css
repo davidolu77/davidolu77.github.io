@@ -11,7 +11,7 @@ body {
   font-family: "Inter", sans-serif;
   height: 100vh; /* Full height */
   display: flex;
-  justify-content: flex-start; /* Align content to the top */
+  justify-content: space-between; /* This pushes the footer to the bottom */
   align-items: center;
   flex-direction: column;
   overflow-y: auto; /* Enables vertical scrolling when content exceeds the viewport height */
@@ -28,6 +28,8 @@ body {
   padding: 20px;
   margin: 50px auto; /* Adjust this value to change the space outside the container */
   box-sizing: border-box;
+  flex-grow: 1; /* Ensure this section grows to fill the space */
+
 }
 
 

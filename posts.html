@@ -30,33 +30,34 @@
                     <li>Fitness & Health</li>
                     <li>Tech</li>
                 </ul>
+
+                
             </div>
-
-
-            <footer>
-                <p>2024 © David Olutunde</p>
-                <p>Section made on 24/07/2024</p>
-                <p>Last edited on 25/08/2024</p>
-                <a href="https://www.instagram.com/davidd.olu/"><i id="ig-icon" class="fa fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
-           
-            </footer>
         </div>
-<script>
-    // Select all navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Function to handle the click event
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // Remove the 'active' class from all links
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            
-            // Add the 'active' class to the clicked link
-            this.classList.add('active');
+
+        <footer>
+            <p>2024 © David Olutunde</p>
+            <p>Section made on 24/07/2024</p>
+            <p>Last edited on 25/08/2024</p>
+            <a href="https://www.instagram.com/davidd.olu/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+        
+        </footer>
+    <script>
+        // Select all navigation links
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Function to handle the click event
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove the 'active' class from all links
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                
+                // Add the 'active' class to the clicked link
+                this.classList.add('active');
+            });
         });
-    });
-</script>
+    </script>
                 
     </body>
 </html>
