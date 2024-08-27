@@ -69,6 +69,12 @@ body {
   text-align: left; /* Keeps content text aligned to the left */
 }
 
+hr {
+  height: 1px; /* Thickness of the line */
+  background-color: black; /* Color of the line */
+  margin: 40px 0; /* Space around the line */
+
+}
 
 h1{
   align-self: flex-start; /* Aligns the <h1> to the left within #homepage */
