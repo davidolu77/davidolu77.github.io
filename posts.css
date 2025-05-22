@@ -95,3 +95,14 @@ footer{
   font-size: 20px;
   margin: 0 5px;
 }
+  
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+a:hover {
+  color: darkgrey;
+  text-decoration: underline;
+}
+
