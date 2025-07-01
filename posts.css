@@ -24,7 +24,7 @@ body {
   align-items: center;
   text-align: left;
   width: 100%;
-  max-width: 600px; /* Limit the width of the content */
+  max-width: 700px; /* Limit the width of the content */
   padding: 20px;
   margin: 50px auto; /* Adjust this value to change the space outside the container */
   box-sizing: border-box;

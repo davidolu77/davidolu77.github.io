@@ -24,7 +24,7 @@ body {
   align-items: center;
   text-align: left;
   width: 100%;
-  max-width: 600px; /* Limit the width of the content */
+  max-width: 700px; /* Limit the width of the content */
   padding: 20px;
   margin: 50px auto; /* Adjust this value to change the space outside the container */
   box-sizing: border-box;
@@ -63,14 +63,43 @@ body {
 
 }
 
-.content {
-  width: 100%; /* Ensures the content spans the full width */
-  margin-top: 20px; /* To ensure content doesn't overlap with topnav */
-  text-align: left; /* Keeps content text aligned to the left */
+
+.about-me-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap; /* Makes it responsive */
+}
+
+.intro-image img {
+  width: 250px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.intro-text {
+  flex: 1;
+  min-width: 250px;
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+
+a {
+  color: grey;
+  text-decoration: none;
 }
 
 a:hover {
-  color: purple;
+  color: darkgrey;
+  text-decoration: underline;
 }
 
 
