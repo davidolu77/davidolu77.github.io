@@ -77,7 +77,7 @@ hr {
 }
 
 h1{
-  align-self: flex-start; /* Aligns the <h1> to the left within #homepage */
+  align-self: flex-start; /* Aligns the <h1> to the left within #postpage */
   margin-top: 0;
   margin-bottom: 10px;
   width: 100%; /* Ensures it spans the full width of the container */

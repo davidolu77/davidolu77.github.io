@@ -76,7 +76,7 @@ hr {
 }
 
 
-h1{
+h1, h2, h3{
   align-self: flex-start; /* Aligns the <h1> to the left within #homepage */
   margin-top: 0;
   margin-bottom: 10px;
@@ -93,4 +93,14 @@ footer{
   color:black;
   font-size: 20px;
   margin: 0 5px;
+}
+
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+a:hover {
+  color: darkgrey;
+  text-decoration: underline;
 }
