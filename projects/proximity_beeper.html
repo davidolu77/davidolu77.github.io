@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proximity Beeper with Ultrasonic Sensor</title>
+    <link rel="stylesheet" href="/projects.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <!-- Prism.js syntax highlighting -->
+    <!-- Prism CSS Theme -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+
+    <!-- Prism JS Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Language Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+    <!-- Line Numbers -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+    <!-- Copy to Clipboard -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+</head>
+
+<body>
+    <div id="projects-article">
+        <h1>🚗 Proximity Beeper with Ultrasonic Sensor (like a parking sensor)</h1>
+        <p><small>Published: July 24, 2025</small></p>
+
+        <p>Build a simple Arduino-based proximity beeper that uses an ultrasonic sensor to measure distance and beep faster as you get closer to an object — just like a car's reverse parking sensor!</p>
+
+        <hr>
+
+        <h2>📸 Preview</h2>
+        <div class="image-preview">
+        <img src="/projects/proximity-beeper.jpeg" alt="Proximity Beeper Project" style="max-width: 100%; border-radius: 10px;">
+        </div>
+
+        <hr>
+
+
+        <h2>🧰 Parts & Materials Used</h2>
+        <table border="1" cellspacing="0" cellpadding="6">
+        <tr><th>Component</th><th>Notes</th><th>Amazon Link</th></tr>
+        <tr><td>Arduino UNO (Real & Clone)</td><td>Main microcontroller board</td><td>Real: <a href="https://amzn.to/4f5PzpD">Link</a>, Clone: <a href="https://amzn.to/4m0It8v">Link</a></td></tr>
+        <tr><td>HC-SR04 Ultrasonic Sensor</td><td>Measures distance</td><td><a href="https://amzn.to/4eVDxPX">Link</a></td></tr>
+        <tr><td>LCD1602 with I2C module</td><td>Displays the distance on-screen</td><td><a href="https://amzn.to/4fewdis">Link</a></td></tr>
+        <tr><td>Speaker (3W 8Ω)</td><td>Plays beeping sound</td><td><a href="https://amzn.to/3GUqcuA">Link</a></td></tr>
+        <tr><td>Breadboard + jumper wires</td><td>For connections</td><td><a href="https://amzn.to/4eMg8Ab">Link</a></td></tr>
+        </table>
+
+        <p style="font-size: 0.9em; color: grey; margin-top: 10px;">
+        <strong>Disclaimer:</strong> The Amazon links provided above are affiliate links. This means I may earn a small commission at no extra cost to you if you make a purchase through them.
+        </p>
+
+        <hr>
+
+        <h2>🔌 Wiring Diagram</h2>
+
+        <h3>🔴 <strong>Ultrasonic Sensor (HC-SR04)</strong></h3>
+        <table border="1" cellspacing="0" cellpadding="6">
+        <tr><th>Sensor Pin</th><th>Connect to</th></tr>
+        <tr><td>VCC</td><td>5V</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>TRIG</td><td>D9</td></tr>
+        <tr><td>ECHO</td><td>D10</td></tr>
+        </table>
+
+        <p> </p>
+            
+        <h3>🔊 <strong>Speaker</strong></h3>
+        <table border="1" cellspacing="0" cellpadding="6">
+        <tr><th>Speaker Wire</th><th>Connect to</th></tr>
+        <tr><td>+</td><td>D8</td></tr>
+        <tr><td>–</td><td>GND</td></tr>
+        </table>
+
+        <p> </p>
+
+        <h2>🔌 16-Pin LCD1602</h2>
+
+        <h3>📊 Connect these LCD pins to Arduino:</h3>
+        <table border="1" cellspacing="0" cellpadding="6">
+        <tr><th>LCD Pin</th><th>Label</th><th>Connect to UNO</th></tr>
+        <tr><td>1</td><td>GND</td><td>GND</td></tr>
+        <tr><td>2</td><td>VCC</td><td>5V</td></tr>
+        <tr><td>3</td><td>VO</td><td>Potentiometer middle pin (for contrast)</td></tr>
+        <tr><td>4</td><td>RS</td><td>D7</td></tr>
+        <tr><td>5</td><td>RW</td><td>GND</td></tr>
+        <tr><td>6</td><td>E</td><td>D6</td></tr>
+        <tr><td>11</td><td>D4</td><td>D5</td></tr>
+        <tr><td>12</td><td>D5</td><td>D4</td></tr>
+        <tr><td>13</td><td>D6</td><td>D3</td></tr>
+        <tr><td>14</td><td>D7</td><td>D2</td></tr>
+        <tr><td>15</td><td>A</td><td>5V (backlight)</td></tr>
+        <tr><td>16</td><td>K</td><td>GND (backlight)</td></tr>
+        </table>
+        <p><em>The pins not listed above (7–10) are unused and should be left unconnected.</em></p>
+
+        <h3>🔀 Contrast Control (Pin 3 — VO):</h3>
+        <p>Use the <strong>10k potentiometer</strong> from your Elegoo kit:</p>
+        <ul>
+        <li>One side → GND</li>
+        <li>Other side → 5V</li>
+        <li>Middle pin → LCD Pin 3 (VO)</li>
+        </ul>
+        <p>Turn the pot to adjust screen visibility!</p>
+
+        <h3>🔹 LCD1602 with I2C</h3>
+        <table border="1" cellspacing="0" cellpadding="6">
+        <tr><th>LCD Pin</th><th>Connect to</th></tr>
+        <tr><td>VCC</td><td>5V</td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+        <tr><td>SDA</td><td>A4</td></tr>
+        <tr><td>SCL</td><td>A5</td></tr>
+        </table>
+
+        <hr>
+
+
+        <h2>✅ Code</h2>
+<pre class="line-numbers language-cpp"><code class="language-cpp">#include &lt;LiquidCrystal.h&gt;
+
+// Initialize with the pins used
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+// RS, E, D4, D5, D6, D7
+
+#define trigPin 9
+#define echoPin 10
+#define speakerPin 8
+
+void setup() {
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+pinMode(speakerPin, OUTPUT);
+
+lcd.begin(16, 2);
+lcd.setCursor(0, 0);
+lcd.print("Distance: ");
+}
+
+void loop() {
+long duration;
+int distance;
+
+// Ultrasonic reading
+digitalWrite(trigPin, LOW); delayMicroseconds(2);
+digitalWrite(trigPin, HIGH); delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+
+duration = pulseIn(echoPin, HIGH);
+distance = duration * 0.034 / 2;
+
+// Show on LCD
+lcd.setCursor(0, 1);
+lcd.print("                "); // Clear row
+lcd.setCursor(0, 1);
+lcd.print(distance);
+lcd.print(" cm");
+
+// Sound logic
+if (distance < 30) {
+    int beepDelay = map(distance, 0, 30, 50, 300);
+    tone(speakerPin, 1000);
+    delay(beepDelay);
+    noTone(speakerPin);
+    delay(beepDelay);
+} else {
+    noTone(speakerPin);
+}
+
+delay(100);
+</code></pre>
+
+        <h3>🚫 Don't forget:</h3>
+        <ul>
+        <li>Download the <strong>LiquidCrystal</strong> library from the Arduino Library Manager if not already installed.</li>
+        <li>To upload this code:
+            <ol>
+            <li>Open Arduino IDE</li>
+            <li>Paste the code</li>
+            <li>Select your Arduino UNO board and port</li>
+            <li>Click Upload ↑</li>
+            </ol>
+        </li>
+        </ul>
+
+        <p><a href="../projects.html">← Back to Projects</a></p>
+
+        <footer>
+        <p>© 2025 David Olutunde</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Prism.highlightAll();
+        });
+    </script>
+
+</body>
+</html>

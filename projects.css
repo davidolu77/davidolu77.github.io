@@ -32,6 +32,17 @@ body {
 
 }
 
+#projects-article {
+  font-size: 14px;
+  max-width: 700px; 
+  margin: auto; 
+  padding: 20px; 
+  font-family: 'Inter', sans-serif; 
+  line-height: 1.6; 
+  color: #000;
+
+}
+
 
 #topnav{
   width: 100%;
@@ -75,6 +86,13 @@ hr {
   margin: 40px 0; /* Space around the line */
 }
 
+.image-preview {
+  width: 250px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  justify-content: center
+}
 
 h1, h2, h3{
   align-self: flex-start; /* Aligns the <h1> to the left within #homepage */
@@ -83,9 +101,41 @@ h1, h2, h3{
   width: 100%; /* Ensures it spans the full width of the container */
 }
   
+
+.code-block {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  white-space: pre;
+  display: block;
+}
+
+pre[class*="language-"] {
+  border-radius: 10px;
+  padding: 1rem;
+  background: #f5f2f0;
+  overflow-x: auto;
+  font-size: 0.95rem;
+}
+
+button.copy-to-clipboard-button {
+  font-size: 0.75rem;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  margin: 0.3rem;
+  border-radius: 5px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+
 footer{
   font-size: 13px;
-  text-align: left;
+  text-align: center;
   margin-top: 20px;
 }
   
