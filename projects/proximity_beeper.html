@@ -127,58 +127,58 @@
 
 
         <h2>✅ Code</h2>
-        <pre class="line-numbers language-cpp"><code class="language-cpp">
-        #include &lt;LiquidCrystal.h&gt;
+        <pre class="line-numbers language-c copy-to-clipboard-enabled">
+        <code class="language-c">#include &lt;LiquidCrystal.h&gt;
 
-        // Initialize with the pins used
-        LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
-        // RS, E, D4, D5, D6, D7
+// Initialize with the pins used
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+// RS, E, D4, D5, D6, D7
 
-        #define trigPin 9
-        #define echoPin 10
-        #define speakerPin 8
+#define trigPin 9
+#define echoPin 10
+#define speakerPin 8
 
-        void setup() {
-        pinMode(trigPin, OUTPUT);
-        pinMode(echoPin, INPUT);
-        pinMode(speakerPin, OUTPUT);
+void setup() {
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+pinMode(speakerPin, OUTPUT);
 
-        lcd.begin(16, 2);
-        lcd.setCursor(0, 0);
-        lcd.print("Distance: ");
-        }
+lcd.begin(16, 2);
+lcd.setCursor(0, 0);
+lcd.print("Distance: ");
+}
 
-        void loop() {
-        long duration;
-        int distance;
+void loop() {
+long duration;
+int distance;
 
-        // Ultrasonic reading
-        digitalWrite(trigPin, LOW); delayMicroseconds(2);
-        digitalWrite(trigPin, HIGH); delayMicroseconds(10);
-        digitalWrite(trigPin, LOW);
+// Ultrasonic reading
+digitalWrite(trigPin, LOW); delayMicroseconds(2);
+digitalWrite(trigPin, HIGH); delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
 
-        duration = pulseIn(echoPin, HIGH);
-        distance = duration * 0.034 / 2;
+duration = pulseIn(echoPin, HIGH);
+distance = duration * 0.034 / 2;
 
-        // Show on LCD
-        lcd.setCursor(0, 1);
-        lcd.print("                "); // Clear row
-        lcd.setCursor(0, 1);
-        lcd.print(distance);
-        lcd.print(" cm");
+// Show on LCD
+lcd.setCursor(0, 1);
+lcd.print("                "); // Clear row
+lcd.setCursor(0, 1);
+lcd.print(distance);
+lcd.print(" cm");
 
-        // Sound logic
-        if (distance < 30) {
-            int beepDelay = map(distance, 0, 30, 50, 300);
-            tone(speakerPin, 1000);
-            delay(beepDelay);
-            noTone(speakerPin);
-            delay(beepDelay);
-        } else {
-            noTone(speakerPin);
-        }
+// Sound logic
+if (distance < 30) {
+    int beepDelay = map(distance, 0, 30, 50, 300);
+    tone(speakerPin, 1000);
+    delay(beepDelay);
+    noTone(speakerPin);
+    delay(beepDelay);
+} else {
+    noTone(speakerPin);
+}
 
-        delay(100);
+delay(100);
         </code></pre>
 
         <h3>🚫 Don't forget:</h3>
