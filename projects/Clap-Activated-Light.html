@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clap-Activated Light</title>
+  <link rel="stylesheet" href="/projects.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<!-- Prism.js syntax highlighting -->
+<!-- Prism CSS Theme -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+
+<!-- Prism JS Core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+<!-- Language Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+<!-- Line Numbers -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<!-- Copy to Clipboard -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+
+<!-- Optional: Prism Clipboard plugin for "Copy" buttons -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+<!-- Google tag (gtag.js) -->
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+<body>
+  <div id="projects-article">
+    <h1>Clap-Activated Light</h1>
+    <p><small>Published: August 27, 2025</small></p>
+
+    <p>A simple sound-reactive project that uses a sound sensor to detect claps or loud noises and toggles an LED on or off with each clap — just like a clap switch lamp.</p>
+
+    <hr>
+
+    <h2>📸 Preview</h2>
+    <div class="image-preview">
+    <img src="/projects/IMG_1119.jpeg" alt="Clap-activated light project preview" style="max-width: 100%; border-radius: 10px;"/>
+    </div>
+
+    <hr>
+
+    <h2>⚙️ How It Works:</h2>
+    <ul>
+      <li>The <strong>sound sensor</strong> listens for sharp sounds (like a clap).</li>
+      <li>When a sound pulse is detected (LOW signal from D0), the Arduino toggles the LED state (ON/OFF).</li>
+      <li>A <strong>flag system</strong> prevents multiple toggles from a single clap by debouncing the input.</li>
+      <li>The result is a hands-free, sound-activated LED that turns on or off every time you clap or make a loud tap.</li>
+    </ul>
+
+    <hr>
+
+
+    <h2>🧰 Parts & Materials Used</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Notes</th><th>Amazon Link to parts</th></tr>
+      <tr><td>Arduino UNO (Real & Clone)</td><td>Microcontroller board</td><td>Real - <a href="https://amzn.to/4f5PzpD">Link</a><br>Clone - <a href="https://amzn.to/4m0It8v">Link</a></td></tr>
+      <tr><td>Sound Sensor Module</td><td>KY-038 or similar (uses digital OUT)</td><td><a href="https://amzn.to/4f5q3Rv">Link</a></td></tr>
+      <tr><td>LED</td><td>For visual feedback</td><td><a href="https://amzn.to/4m8ZRrt">Link</a></td></tr>
+      <tr><td>220Ω Resistor</td><td>In series with LED</td><td><a href="https://amzn.to/4m8ZRrt">Link</a></td></tr>
+      <tr><td>Breadboard + jumper wires</td><td>For easy connections</td><td><a href="https://amzn.to/4eMg8Ab">Link</a></td></tr>
+    </table>
+    <p style="font-size: 0.9em; color: grey; margin-top: 10px;">
+    <strong>Disclaimer:</strong> The Amazon links provided above are affiliate links. This means I may earn a small commission at no extra cost to you if you make a purchase through them.
+    </p>
+    <hr>
+
+    <h2>🔌 Wiring Instructions</h2>
+
+    <h3>🔉 Sound Sensor</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Sensor Pin</th><th>Connect to</th></tr>
+      <tr><td>VCC</td><td>5V</td></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>OUT (D0)</td><td>D2</td></tr>
+    </table>
+    <p><em>Use the digital output pin (OUT) on the sound sensor — not the analog one (A0).</em></p>
+
+    <h3>💡 LED with Resistor</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>LED Leg</th><th>Connect to</th></tr>
+      <tr><td>Long leg (+)</td><td>D8 via 220Ω resistor</td></tr>
+      <tr><td>Short leg (–)</td><td>GND</td></tr>
+    </table>
+
+    <hr>
+
+
+    <h2>📞 Arduino Code</h2>
+<p style="font-size: 0.8rem; font-weight: bold;">Language: C++</p>
+<pre class="line-numbers language-c copy-to-clipboard-enabled">
+<code class="language-c">#const int soundSensorPin = 2;  // Digital OUT from sound sensor
+const int ledPin = 8;          // LED connected to pin 8
+
+bool ledState = false;
+bool soundDetected = false;
+
+void setup() {
+  pinMode(soundSensorPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  int sensorValue = digitalRead(soundSensorPin);
+
+  // Detect sound pulse (goes LOW on sound)
+  if (sensorValue == LOW && !soundDetected) {
+    ledState = !ledState;           // Toggle LED state
+    digitalWrite(ledPin, ledState); // Apply the new state
+    soundDetected = true;
+    delay(200);                     // Debounce delay
+  }
+
+  // Reset detection flag when sound passes
+  if (sensorValue == HIGH) {
+    soundDetected = false;
+  }
+}
+</code></pre>
+
+    <h3>🧪 Notes:</h3>
+    <ul>
+      <li>Sound sensor <strong>usually sends LOW when detecting sound</strong></li>
+      <li>The <code>soundDetected</code> flag helps avoid multiple toggles from a single clap</li>
+      <li><code>delay(200)</code> helps debounce and prevent false multiple triggers</li>
+    </ul>
+
+    <h3>🚀 Uploading the Code</h3>
+    <ol>
+      <li>Open Arduino IDE</li>
+      <li>Paste the code</li>
+      <li>Select your Arduino UNO board and port</li>
+      <li>Click Upload ↑</li>
+    </ol>
+
+    <p><a href="../projects.html">&larr; Back to Projects</a></p>
+
+    <footer>
+      <p>© 2025 David Olutunde</p>
+    </footer>
+  </div>
+
+     
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        Prism.highlightAll();
+    });
+</script>
+
+
+</body>
+</html>
