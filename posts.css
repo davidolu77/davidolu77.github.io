@@ -94,6 +94,16 @@ h1{
   width: 100%; /* Ensures it spans the full width of the container */
 }
 
+  
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+a:hover {
+  color: darkgrey;
+  text-decoration: underline;
+}
 
 footer{
   font-size: 13px;
@@ -106,14 +116,3 @@ footer{
   font-size: 20px;
   margin: 0 5px;
 }
-  
-a {
-  color: grey;
-  text-decoration: none;
-}
-
-a:hover {
-  color: darkgrey;
-  text-decoration: underline;
-}
-
