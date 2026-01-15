@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Level Indicator</title>
+  <link rel="stylesheet" href="/projects.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>Water Level Indicator</h1>
+    <p><small>Published: January 15, 2026</small></p>
+
+    <p>A water level indicator that lights up a series of LEDs based on how much water the sensor is submerged in — the more water, the more LEDs turn on.</p>
+
+    <hr>
+
+    <h2>📸 Preview</h2>
+    <div class="image-preview">
+      <img src="/projects/water-level-indicator.jpeg" alt="Water Level Indicator Thumbnail" style="max-width: 48%; border-radius: 10px;">
+    </div>
+
+    <hr>
+
+    <h2>⚙️ How It Works:</h2>
+    <ul>
+      <li>The <strong>water level sensor</strong> outputs an analog signal depending on how deep it’s submerged.</li>
+      <li>The Arduino reads this analog value using <code>analogRead()</code>.</li>
+      <li>The value is mapped to a range of 0 to 8 (for 8 LEDs).</li>
+      <li>More submerged = more LEDs turned on, bottom to top.</li>
+      <li>Acts like a battery meter to show water depth visually.</li>
+    </ul>
+
+    <hr>
+
+    <h2>📦 Components Used:</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td>Arduino UNO</td><td>Main controller</td></tr>
+      <tr><td>Water Level Sensor</td><td>Detects water depth</td></tr>
+      <tr><td>8 LEDs</td><td>Display water level visually</td></tr>
+      <tr><td>8x 220Ω Resistors</td><td>Limit current for LEDs</td></tr>
+      <tr><td>Breadboard + jumper wires</td><td>Connections</td></tr>
+      <tr><td>Passive Buzzer</td><td>For tone alert when full</td></tr>
+    </table>
+
+    <p style="font-size: 0.9em; color: grey; margin-top: 10px;">
+      <strong>Disclaimer:</strong> Some Amazon links may be affiliate links. This means I may earn a small commission at no extra cost to you.
+    </p>
+
+    <hr>
+
+    <h2>🔌 Wiring Instructions</h2>
+
+    <h3>🌊 Water Level Sensor</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Sensor Pin</th><th>Connect To</th></tr>
+      <tr><td>VCC</td><td>5V</td></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>A0</td><td>A0 on Arduino</td></tr>
+    </table>
+
+    <h3>🔊 Passive Buzzer</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Connect to</th></tr>
+      <tr><td>Buzzer +</td><td>D10</td></tr>
+      <tr><td>Buzzer –</td><td>GND</td></tr>
+    </table>
+
+    <h3>💡 LEDs (x8)</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>LED #</th><th>Color</th><th>Pin</th><th>Note</th></tr>
+      <tr><td>1</td><td>Green</td><td>D2</td><td>Lowest water level</td></tr>
+      <tr><td>2</td><td>Green</td><td>D3</td><td></td></tr>
+      <tr><td>3</td><td>Green</td><td>D4</td><td></td></tr>
+      <tr><td>4</td><td>Yellow</td><td>D5</td><td>Mid-level</td></tr>
+      <tr><td>5</td><td>Yellow</td><td>D6</td><td></td></tr>
+      <tr><td>6</td><td>Yellow</td><td>D7</td><td></td></tr>
+      <tr><td>7</td><td>Red</td><td>D8</td><td>Warning level</td></tr>
+      <tr><td>8</td><td>Red</td><td>D9</td><td>Tank full</td></tr>
+    </table>
+
+    <p>Each LED's <strong>anode</strong> (long leg) connects to Arduino via a <strong>220Ω resistor</strong>. Each <strong>cathode</strong> (short leg) → GND rail.</p>
+
+    <hr>
+
+    <h2>✅ Code</h2>
+    <p style="font-size: 0.8rem; font-weight: bold;">Language: C++</p>
+    <pre class="line-numbers language-c copy-to-clipboard-enabled"><code class="language-c">
+const int sensorPin = A0;  // Water level sensor analog output
+
+// LED pins from D2 to D9
+const int ledPins[] = {2, 3, 4, 5, 6, 7, 8, 9};
+const int numLEDs = 8;
+const int buzzerPin = 10;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+
+  for (int i = 0; i < numLEDs; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+  Serial.begin(9600); // For debugging water level
+}
+
+void loop() {
+  int sensorValue = analogRead(sensorPin); // Read water level (0–1023)
+  Serial.println(sensorValue);             // Optional: view sensor output
+
+  // Map sensor value to number of LEDs (0–8)
+  int level = map(sensorValue, 100, 350, 0, numLEDs);
+  level = constrain(level, 0, numLEDs); // Keep within LED range
+
+  // Light up LEDs based on water level
+  for (int i = 0; i < numLEDs; i++) {
+    digitalWrite(ledPins[i], i < level ? HIGH : LOW);
+  }
+
+  // Turn on buzzer if water level is too high
+  if (level >= 8) { // Top 2 LEDs lit
+    tone(buzzerPin, 1000);  // 1kHz beep
+  } else {
+    noTone(buzzerPin);
+  }
+
+  delay(100);
+}
+</code></pre>
+
+    <h3>🚀 Uploading the Code</h3>
+    <ul>
+      <li>Open Arduino IDE</li>
+      <li>Paste the code</li>
+      <li>Select your Arduino UNO board and port</li>
+      <li>Click Upload ↑</li>
+    </ul>
+
+    <p><a href="../projects.html">← Back to Projects</a></p>
+
+    <footer>
+      <p>© 2025 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Prism.highlightAll();
+    });
+  </script>
+</body>
+</html>
