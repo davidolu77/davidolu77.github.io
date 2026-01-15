@@ -88,11 +88,11 @@ hr {
 }
 
 .image-preview {
-  width: 250px;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  justify-content: center
+ display: flex; 
+ flex-wrap: wrap; 
+ gap: 20px; 
+ justify-content: left; 
+ margin-bottom: 30px
 }
 
 h1, h2, h3{
