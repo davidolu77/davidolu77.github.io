@@ -80,7 +80,24 @@ body {
   margin-top: 20px; /* To ensure content doesn't overlap with topnav */
   text-align: left; /* Keeps content text aligned to the left */
 }
-  
+
+.article {
+  margin-bottom: 20px;
+}
+
+.article-content {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.article-thumb {
+  width: 200px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+
 hr {
   height: 1px; /* Thickness of the line */
   background-color: black; /* Color of the line */
