@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Alarm Clock</title>
+
+  <link rel="stylesheet" href="/projects.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> 
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>Digital Alarm Clock</h1>
+    <p><small>Published: January 16, 2026</small></p>
+
+    <p>This project is a <strong>digital alarm clock</strong> built with an Arduino UNO, a 16x2 LCD display, and a Real-Time Clock (RTC) module. It can <strong>keep accurate time</strong> even when the Arduino is turned off, lets you <strong>set the time and alarm</strong> using push buttons, and sounds a buzzer when the alarm goes off. You can switch between <strong>12-hour and 24-hour display modes</strong> and stop the alarm with a button press.</p>
+    <p>The full breakdown of how to assemble this project in detail can be found in my beginners Arduino guide 
+    <a href="https://shop.beacons.ai/buildwitdavid/d4a48f24-76e6-403a-b5f9-9e37679739a0" target="_blank" style="color: grey; font-weight: bold;">here →</a>
+    </p>
+    <hr>
+
+    <h2>📊 Preview</h2>
+    <img src="/projects/dig-alarm-clock.jpeg" alt="Digital Alarm Clock Preview" style="width: 100%; max-width: 500px; border-radius: 12px;">
+
+    <hr>
+
+    <h2>⚙️ How It Works:</h2>
+    <ul>
+      <li>The <strong>RTC module</strong> keeps track of the current time and date using its own backup battery.</li>
+      <li>The <strong>Arduino</strong> asks the RTC for the time, displays it on the LCD, and checks if it matches your alarm time.</li>
+      <li>Three <strong>push buttons</strong> control the clock:</li>
+      <ul>
+        <li><strong>Set Time</strong> – Change the current time (hours and minutes).</li>
+        <li><strong>Set Alarm</strong> – Choose the alarm time.</li>
+        <li><strong>Stop/Toggle</strong> – Stop the alarm or toggle between 12/24-hour display mode.</li>
+      </ul>
+      <li>When time matches your alarm, the <strong>buzzer</strong> pulses until stopped.</li>
+      <li>The LCD shows current time + mode (top row) and alarm status (bottom row).</li>
+    </ul>
+
+    <hr>
+
+    <h2>📦 Components Used:</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td>Arduino UNO</td><td>Main microcontroller</td></tr>
+      <tr><td>LCD1602 (16-pin)</td><td>Displays the time + alarm</td></tr>
+      <tr><td>DS1307 RTC Module</td><td>Keeps accurate time</td></tr>
+      <tr><td>Push Buttons (x3)</td><td>Set/stop/toggle alarm</td></tr>
+      <tr><td>Passive or Active Buzzer</td><td>Sounds the alarm</td></tr>
+      <tr><td>Potentiometer (10kΩ)</td><td>Controls LCD contrast</td></tr>
+      <tr><td>Resistors (10kΩ + 220Ω)</td><td>Pull-downs + backlight</td></tr>
+      <tr><td>Breadboard & wires</td><td>All connections</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>🔌 Wiring Instructions & Diagram</h2>
+    <p><img src="/projects/digital_clock_bb.png" alt="Wiring Diagram" style="width: 100%; max-width: 600px; border-radius: 12px;"></p>
+
+    <hr>
+
+    <!-- CODE BLOCK -->
+    <h2>📜 Arduino Code</h2>
+    <p style="font-size: 0.8rem; font-weight: bold;">Language: C++</p>
+    <pre class="line-numbers language-c copy-to-clipboard-enabled"><code class="language-c">// Arduino LCD Alarm Clock (1602) — Final Sketch with 12/24h toggle, AM/PM display,
+// 12h-aware time/alarm setting, passive-buzzer alarm pattern, and improved alarm row.
+//
+// Hardware
+// - LCD1602 (parallel): RS->7, E->8, D4..D7->9..12, RW->GND, V0 via 10k pot, LED+ (15) via 220Ω to 5V, LED- (16) to GND
+// - Buttons: SET_TIME->D2, SET_ALARM->D3, STOP->D4 (wired with external 10k pulldown to GND, button to +5V)
+// - Buzzer (passive): D5 -> + pin, other pin to GND
+// - RTC: DS3231/DS1307 via I2C (SDA/SCL)
+//
+// Usage
+// - NORMAL screen: double-press STOP to toggle 12HR/24HR (top-right shows mode).
+// - SET TIME: press SET_TIME to enter. In hour screen: 
+//     * Press SET_TIME to increment.
+//     * In 12h mode: short-press STOP toggles AM/PM.
+//     * Press SET_ALARM (or long-press SET_TIME/SET_ALARM) to move to minutes.
+//   Minutes screen: press SET_TIME to increment; press SET_ALARM (or long-press) to save.
+// - SET ALARM: press SET_ALARM to enter; same controls as TIME. Saving enables the alarm.
+// - When alarm rings: press STOP to silence.
+
+#include &lt;Wire.h&gt;
+#include &lt;RTClib.h&gt;
+#include &lt;LiquidCrystal.h&gt;
+
+// ---------- LCD pins (RS, EN, D4, D5, D6, D7)
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+
+// ---------- RTC
+RTC_DS3231 rtc; // Works with DS1307 too via RTClib
+
+// ---------- Pins
+const int BTN_SET_TIME  = 2;
+const int BTN_SET_ALARM = 3;
+const int BTN_STOP      = 4;
+const int BUZZER_PIN    = 5; // passive buzzer
+
+// ---------- Alarm state
+int  alarmHour   = 7;   // 0..23 (stored internally in 24h)
+int  alarmMinute = 0;
+bool alarmEnabled = false;
+bool alarmRinging = false;
+
+// ---------- Display mode
+bool is12HourMode = false; // toggled by STOP double-press in NORMAL
+
+// ---------- Button handling (debounce + edge + long-press)
+struct BtnState {
+  int pin;
+  bool lastLevel;
+  bool pressedEdge;
+  bool longPressEdge;
+  unsigned long pressedAt;
+  BtnState(int p): pin(p), lastLevel(false), pressedEdge(false), longPressEdge(false), pressedAt(0) {}
+};
+
+BtnState bTime(BTN_SET_TIME);
+BtnState bAlarm(BTN_SET_ALARM);
+BtnState bStop(BTN_STOP);
+
+const unsigned long DEBOUNCE_MS = 30;
+const unsigned long LONG_MS     = 800;
+
+bool readBtn(BtnState &b) {
+  bool level = digitalRead(b.pin); // active HIGH (external pulldown)
+  bool rising  =  level && !b.lastLevel;
+  bool falling = !level &&  b.lastLevel;
+
+  b.pressedEdge   = false;
+  b.longPressEdge = false;
+
+  if (rising)  b.pressedAt = millis();
+  if (falling) {
+    unsigned long held = millis() - b.pressedAt;
+    if (held >= LONG_MS)          b.longPressEdge = true;
+    else if (held >= DEBOUNCE_MS) b.pressedEdge   = true;
+  }
+  b.lastLevel = level;
+  return level;
+}
+
+// ---------- Modes
+enum Mode { NORMAL, SET_TIME_H, SET_TIME_M, SET_ALARM_H, SET_ALARM_M, ALARM_RING };
+Mode mode = NORMAL;
+
+// ---------- Edit buffers
+int  newHour = 0, newMinute = 0;            // TIME editing
+bool editPM = false;                        // for 12h time edit
+int  newAlarmHour = 0, newAlarmMinute = 0;  // ALARM editing
+bool editAlarmPM = false;                   // for 12h alarm edit
+
+// ---------- STOP double-press detection
+unsigned long lastStopPressAt = 0;
+const unsigned long DOUBLE_MS = 450; // window for double-press
+
+// ---------- Passive buzzer alarm pattern (non-blocking)
+unsigned long lastToneMs = 0;
+bool toneFlip = false; // alternate between two tones
+
+void startAlarmTone() {
+  lastToneMs = millis();
+  toneFlip = false;
+  tone(BUZZER_PIN, 1200); // start high
+}
+
+void updateAlarmTone() {
+  // Alternate tones every 250 ms for an alarm-y sound
+  unsigned long now = millis();
+  if (now - lastToneMs >= 250) {
+    toneFlip = !toneFlip;
+    tone(BUZZER_PIN, toneFlip ? 800 : 1200);
+    lastToneMs = now;
+  }
+}
+
+void stopAlarmTone() {
+  noTone(BUZZER_PIN);
+}
+
+// ---------- UI helpers
+void clearRow(int row) {
+  lcd.setCursor(0, row);
+  for (int i = 0; i < 16; i++) lcd.print(' ');
+}
+
+void printTimeRow(const DateTime& now) {
+  // Row 0: time and mode tag on the far right (cols 12..15)
+  lcd.setCursor(0, 0);
+  // Clear row to avoid artifacts when switching modes
+  for (int i = 0; i < 16; i++) lcd.print(' ');
+
+  int h = now.hour();
+  int m = now.minute();
+
+  if (is12HourMode) {
+    int h12 = h % 12; if (h12 == 0) h12 = 12;
+    const char* ampm = (h < 12) ? "AM" : "PM";
+    // HH:MM AM
+    lcd.setCursor(0, 0);
+    char buf[8];
+    snprintf(buf, sizeof(buf), "%02d:%02d", h12, m);
+    lcd.print(buf);
+    lcd.setCursor(6, 0);
+    lcd.print(ampm);
+  } else {
+    // HH:MM (24h)
+    lcd.setCursor(0, 0);
+    char buf[8];
+    snprintf(buf, sizeof(buf), "%02d:%02d", h, m);
+    lcd.print(buf);
+  }
+  // Mode tag at far right
+  lcd.setCursor(12, 0);
+  lcd.print(is12HourMode ? "12HR" : "24HR");
+}
+
+void printAlarmRow() {
+  // Row 1 shows the alarm time in either 24h or 12h with AM/PM,
+  // and places the ON/OFF status at the far right (cols 12..15).
+  clearRow(1);
+  lcd.setCursor(0, 1);
+
+  if (is12HourMode) {
+    int h24 = alarmHour;
+    int h12 = h24 % 12; if (h12 == 0) h12 = 12;
+    const char* ampm = (h24 < 12) ? "AM" : "PM";
+
+    // Print: "AL %02d:%02d" at cols 0..7
+    char tbuf[9];
+    snprintf(tbuf, sizeof(tbuf), "AL %02d:%02d", h12, alarmMinute);
+    lcd.print(tbuf);
+
+    // AM/PM at cols 9..10
+    lcd.setCursor(9, 1);
+    lcd.print(ampm);
+
+    // Status at cols 12..15
+    lcd.setCursor(12, 1);
+    if (alarmEnabled) lcd.print(" ON "); else lcd.print("OFF ");
+  } else {
+    // 24h: no AM/PM text
+    char tbuf[9];
+    snprintf(tbuf, sizeof(tbuf), "AL %02d:%02d", alarmHour, alarmMinute);
+    lcd.print(tbuf);
+
+    // Status at cols 12..15
+    lcd.setCursor(12, 1);
+    if (alarmEnabled) lcd.print(" ON "); else lcd.print("OFF ");
+  }
+}
+
+void showSetPrompt(const char* title, int val, bool showAMPM, bool pmFlag) {
+  // Row 0: title
+  clearRow(0);
+  lcd.setCursor(0, 0);
+  lcd.print(title);
+  // Row 1: value (+ optional AM/PM)
+  clearRow(1);
+  lcd.setCursor(0, 1);
+  char buf[5];
+  snprintf(buf, sizeof(buf), "%02d", val);
+  lcd.print(buf);
+  if (showAMPM) {
+    lcd.print(' ');
+    lcd.print(pmFlag ? "PM" : "AM");
+  }
+  lcd.setCursor(10, 1);
+  lcd.print("(next)");
+}
+
+void stopAlarm() {
+  stopAlarmTone();
+  alarmRinging = false;
+  mode = NORMAL;
+}
+
+void ringAlarm() {
+  alarmRinging = true;
+  mode = ALARM_RING;
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("  *** ALARM ***");
+  lcd.setCursor(0, 1);
+  lcd.print("Press STOP Btn");
+  startAlarmTone();
+}
+
+// ---------- Setup
+void setup() {
+  pinMode(BTN_SET_TIME,  INPUT);
+  pinMode(BTN_SET_ALARM, INPUT);
+  pinMode(BTN_STOP,      INPUT);
+  pinMode(BUZZER_PIN,    OUTPUT);
+
+  lcd.begin(16, 2);
+  lcd.print("Digital Clock...");
+  delay(1200);
+  lcd.clear();
+
+  Wire.begin();
+  if (!rtc.begin()) {
+    lcd.print("RTC not found!");
+    while (1);
+  }
+  if (rtc.lostPower()) {
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+}
+
+// ---------- Loop
+void loop() {
+  // Poll buttons
+  readBtn(bTime);
+  readBtn(bAlarm);
+  readBtn(bStop);
+
+  // Handle alarm ringing (non-blocking tone pattern)
+  if (mode == ALARM_RING) {
+    updateAlarmTone();
+    if (bStop.pressedEdge || bStop.longPressEdge) {
+      stopAlarm();
+      lcd.clear();
+    }
+    return; // stay here until stopped
+  }
+
+  // NORMAL clock display & alarm check
+  if (mode == NORMAL) {
+    DateTime now = rtc.now();
+
+    // Display
+    printTimeRow(now);
+    printAlarmRow();
+
+    // Alarm trigger (once at second==0)
+    if (alarmEnabled && !alarmRinging &&
+        now.hour() == alarmHour && now.minute() == alarmMinute && now.second() == 0) {
+      ringAlarm();
+      return;
+    }
+
+    // Enter set modes
+    if (bTime.pressedEdge || bTime.longPressEdge) {
+      // Init edit buffers from current time
+      DateTime n = rtc.now();
+      if (is12HourMode) {
+        editPM = (n.hour() >= 12);
+        int h12 = n.hour() % 12; if (h12 == 0) h12 = 12;
+        newHour = h12;
+      } else {
+        newHour = n.hour();
+      }
+      newMinute = n.minute();
+      mode = SET_TIME_H;
+      lcd.clear();
+    } else if (bAlarm.pressedEdge || bAlarm.longPressEdge) {
+      // Init edit buffers from current alarm
+      if (is12HourMode) {
+        editAlarmPM = (alarmHour >= 12);
+        int h12 = alarmHour % 12; if (h12 == 0) h12 = 12;
+        newAlarmHour = h12;
+      } else {
+        newAlarmHour = alarmHour;
+      }
+      newAlarmMinute = alarmMinute;
+      mode = SET_ALARM_H;
+      lcd.clear();
+    }
+
+    // STOP double-press to toggle 12/24h mode
+    if (bStop.pressedEdge) {
+      unsigned long nowMs = millis();
+      if (nowMs - lastStopPressAt <= DOUBLE_MS) {
+        is12HourMode = !is12HourMode;
+        lastStopPressAt = 0; // reset window
+      } else {
+        lastStopPressAt = nowMs;
+      }
+    }
+
+    delay(120);
+    return;
+  }
+
+  // -------- TIME SET MODE
+  if (mode == SET_TIME_H) {
+    // Show Hour prompt
+    showSetPrompt("Set Time: Hour", newHour, is12HourMode, editPM);
+
+    // Increment hour on TIME press
+    if (bTime.pressedEdge) {
+      if (is12HourMode) {
+        newHour++; if (newHour > 12) newHour = 1;
+      } else {
+        newHour = (newHour + 1) % 24;
+      }
+      showSetPrompt("Set Time: Hour", newHour, is12HourMode, editPM);
+    }
+
+    // In 12h mode, STOP short toggles AM/PM
+    if (is12HourMode && bStop.pressedEdge) {
+      editPM = !editPM;
+      showSetPrompt("Set Time: Hour", newHour, true, editPM);
+    }
+
+    // Next field
+    if (bAlarm.pressedEdge || bTime.longPressEdge || bAlarm.longPressEdge) {
+      mode = SET_TIME_M;
+      lcd.clear();
+    }
+
+    // Cancel
+    if (bStop.longPressEdge) {
+      mode = NORMAL;
+      lcd.clear();
+    }
+    return;
+  }
+
+  if (mode == SET_TIME_M) {
+    showSetPrompt("Set Time: Min", newMinute, false, false);
+
+    if (bTime.pressedEdge) {
+      newMinute = (newMinute + 1) % 60;
+      showSetPrompt("Set Time: Min", newMinute, false, false);
+    }
+
+    // Save
+    if (bAlarm.pressedEdge || bTime.longPressEdge || bAlarm.longPressEdge) {
+      // Build 24h value from edit fields
+      int saveH = newHour;
+      if (is12HourMode) {
+        saveH = newHour % 12;
+        if (editPM && saveH != 12) saveH += 12; // 1..11 PM => 13..23
+        if (!editPM && newHour == 12) saveH = 0; // 12 AM => 0
+      }
+      DateTime cur = rtc.now();
+      rtc.adjust(DateTime(cur.year(), cur.month(), cur.day(), saveH, newMinute, 0));
+      mode = NORMAL;
+      lcd.clear();
+    }
+
+    // Cancel
+    if (bStop.longPressEdge) {
+      mode = NORMAL;
+      lcd.clear();
+    }
+    return;
+  }
+
+  // -------- ALARM SET MODE
+  if (mode == SET_ALARM_H) {
+    showSetPrompt("Set Alarm: Hour", newAlarmHour, is12HourMode, editAlarmPM);
+
+    if (bTime.pressedEdge) {
+      if (is12HourMode) {
+        newAlarmHour++; if (newAlarmHour > 12) newAlarmHour = 1;
+      } else {
+        newAlarmHour = (newAlarmHour + 1) % 24;
+      }
+      showSetPrompt("Set Alarm: Hour", newAlarmHour, is12HourMode, editAlarmPM);
+    }
+
+    if (is12HourMode && bStop.pressedEdge) {
+      editAlarmPM = !editAlarmPM;
+      showSetPrompt("Set Alarm: Hour", newAlarmHour, true, editAlarmPM);
+    }
+
+    // Next field
+    if (bAlarm.pressedEdge || bTime.longPressEdge || bAlarm.longPressEdge) {
+      mode = SET_ALARM_M;
+      lcd.clear();
+    }
+
+    // Cancel
+    if (bStop.longPressEdge) {
+      mode = NORMAL;
+      lcd.clear();
+    }
+    return;
+  }
+
+  if (mode == SET_ALARM_M) {
+    showSetPrompt("Set Alarm: Min", newAlarmMinute, false, false);
+
+    if (bTime.pressedEdge) {
+      newAlarmMinute = (newAlarmMinute + 1) % 60;
+      showSetPrompt("Set Alarm: Min", newAlarmMinute, false, false);
+    }
+
+    // Save
+    if (bAlarm.pressedEdge || bTime.longPressEdge || bAlarm.longPressEdge) {
+      int saveH = newAlarmHour;
+      if (is12HourMode) {
+        saveH = newAlarmHour % 12;
+        if (editAlarmPM && saveH != 12) saveH += 12;
+        if (!editAlarmPM && newAlarmHour == 12) saveH = 0;
+      }
+      alarmHour = saveH;
+      alarmMinute = newAlarmMinute;
+      alarmEnabled = true;
+      mode = NORMAL;
+      lcd.clear();
+    }
+
+    // Cancel
+    if (bStop.longPressEdge) {
+      mode = NORMAL;
+      lcd.clear();
+    }
+    return;
+  }
+}
+
+</code></pre>
+
+    <hr>
+
+    <h2>📆 Installing the Required Libraries</h2>
+    <ul>
+      <li><strong>LiquidCrystal</strong> – Already included with the Arduino IDE</li>
+      <li><strong>RTClib</strong> – Install via Library Manager</li>
+    </ul>
+
+    <h3>🚀 Uploading the Code</h3>
+    <ol>
+      <li>Open Arduino IDE</li>
+      <li>Paste the full sketch into a new file</li>
+      <li>Select "Arduino UNO" as your board</li>
+      <li>Choose the correct COM port</li>
+      <li>Click Upload</li>
+    </ol>
+
+    <p><a href="../projects.html">← Back to Projects</a></p>
+
+    <footer>
+      <p>© 2025 David Olutunde</p>
+      <a href="https://www.instagram.com/davidd.olu/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+    </footer>
+  </div>
+
+ 
+</body>
+</html>
