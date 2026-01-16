@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fm Radio</title>
+
+  <link rel="stylesheet" href="/projects.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"> 
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>FM Radio</h1>
+    <p><small>Published: January 16, 2026</small></p>
+
+    <p>This project is an <strong>Arduino-powered FM radio</strong> that uses the TEA5767 radio module, an LCD1602 display, a rotary encoder for tuning, and a PAM8403 audio amplifier to drive a speaker. With this build, you can manually tune stations with the rotary knob, auto-seek the next available station with a button press, and listen through a connected speaker. It’s a compact DIY radio project that combines digital control with classic FM listening.</p>
+
+    <hr>
+
+    <h2>📸 Preview</h2>
+    <div class="image-preview">
+    <img src="/projects/fm-radio.jpeg" alt="FM Radio Project Preview" style="width: 100%; max-width: 500px; border-radius: 12px;">
+    </div>
+
+    <hr>
+
+    <h2>⚙️ How It Works:</h2>
+    <ul>
+      <li>The <strong>Arduino UNO</strong> acts as the brain, controlling the TEA5767 FM radio module over the I²C bus.</li>
+      <li>The <strong>TEA5767 module</strong> handles the actual FM signal reception and outputs the audio signal through its 3.5 mm headphone jack.</li>
+      <li>A <strong>rotary encoder</strong> lets you tune the frequency manually.</li>
+      <li>Pressing the encoder button triggers an <strong>auto-seek</strong> to the next station.</li>
+      <li>The <strong>LCD1602</strong> shows the tuned frequency.</li>
+      <li><strong>PAM8403 amplifier</strong> powers a small speaker for audio output.</li>
+    </ul>
+
+    <hr>
+
+    <h2>🧰 Parts & Materials Used</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Notes</th></tr>
+      <tr><td>Arduino UNO</td><td>Main microcontroller board</td></tr>
+      <tr><td>TEA5767 FM Radio Module</td><td>FM receiver, communicates via I²C</td></tr>
+      <tr><td>LCD1602 Display (16-pin)</td><td>Shows frequency and status</td></tr>
+      <tr><td>Rotary Encoder with Push Button</td><td>Manual tuning + auto-seek button</td></tr>
+      <tr><td>PAM8403 Audio Amplifier</td><td>Drives speaker output</td></tr>
+      <tr><td>3W 8Ω Speaker</td><td>Audio output</td></tr>
+      <tr><td>10k Potentiometer</td><td>LCD contrast control</td></tr>
+      <tr><td>3.5mm Male-to-Bare Wire Cable</td><td>Connects TEA5767 audio to amp</td></tr>
+      <tr><td>Breadboard + Wires</td><td>Prototyping</td></tr>
+      <tr><td>Power Source</td><td>USB or 5V battery bank</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>🔌 Wiring Instructions</h2>
+
+    <h4>TEA5767 Module → Arduino</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>TEA5767 Pin</th><th>Arduino Pin</th><th>Notes</th></tr>
+      <tr><td>VCC</td><td>5V</td><td>Module is 5V-tolerant</td></tr>
+      <tr><td>GND</td><td>GND</td><td>Common ground</td></tr>
+      <tr><td>SDA</td><td>A4</td><td>I²C data</td></tr>
+      <tr><td>SCL</td><td>A5</td><td>I²C clock</td></tr>
+    </table>
+
+    <h4>LCD1602 Display → Arduino</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>LCD Pin</th><th>Arduino Pin</th><th>Notes</th></tr>
+      <tr><td>VSS</td><td>GND</td><td>Ground</td></tr>
+      <tr><td>VDD</td><td>5V</td><td>Power</td></tr>
+      <tr><td>VO</td><td>Middle of Potentiometer</td><td>Contrast control</td></tr>
+      <tr><td>RS</td><td>D7</td><td>Register select</td></tr>
+      <tr><td>RW</td><td>GND</td><td>Always LOW (write mode)</td></tr>
+      <tr><td>E</td><td>D8</td><td>Enable</td></tr>
+      <tr><td>D4</td><td>D9</td><td>Data</td></tr>
+      <tr><td>D5</td><td>D10</td><td>Data</td></tr>
+      <tr><td>D6</td><td>D11</td><td>Data</td></tr>
+      <tr><td>D7</td><td>D12</td><td>Data</td></tr>
+      <tr><td>A</td><td>5V</td><td>Backlight +</td></tr>
+      <tr><td>K</td><td>GND</td><td>Backlight –</td></tr>
+    </table>
+
+    <h4>Rotary Encoder → Arduino</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Encoder Pin</th><th>Arduino Pin</th></tr>
+      <tr><td>CLK</td><td>D2</td></tr>
+      <tr><td>DT</td><td>D3</td></tr>
+      <tr><td>SW</td><td>D4</td></tr>
+      <tr><td>+V</td><td>5V</td></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+    </table>
+
+    <h4>PAM8403 Audio Amplifier</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>PAM Pin</th><th>Connection</th></tr>
+      <tr><td>Power +</td><td>Arduino 5V</td></tr>
+      <tr><td>Power –</td><td>Arduino GND</td></tr>
+      <tr><td>G</td><td>Black aux wire</td></tr>
+      <tr><td>B (R-in)</td><td>Red aux wire</td></tr>
+      <tr><td>Speaker +/-</td><td>To speaker terminals</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>🧾 Arduino Code</h2>
+    <p style="font-size: 0.8rem; font-weight: bold;">Language: C++</p>
+    <pre class="line-numbers language-c copy-to-clipboard-enabled"><code class="language-c">#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal.h&gt;
+
+// ------ LCD pins (RS, E, D4, D5, D6, D7) ------
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+
+// ------ Rotary encoder ------
+const uint8_t ENC_A = 2;   // CLK
+const uint8_t ENC_B = 3;   // DT
+const uint8_t ENC_SW = 4;  // push button
+volatile int8_t encDelta = 0;
+volatile uint8_t lastAB = 0;
+
+// ------ TEA5767 ------
+const uint8_t TEA5767_ADDR = 0x60;      // I2C address
+float freqMHz = 101.1;                   // start frequency
+const float F_MIN = 87.0, F_MAX = 108.0;
+const float STEP  = 0.1;                 // MHz
+const uint8_t RSSI_THRESHOLD = 8;        // 0..15 (raise if it stops on noise)
+
+// ---- helpers ----
+void tea5767SetFrequency(float mhz) {
+  uint16_t pll = (uint16_t)((4.0 * (mhz * 1000000.0 + 225000.0)) / 32768.0);
+  uint8_t data[5];
+  data[0] = (pll >> 8) & 0x3F;           // MUTE=0, SM=0
+  data[1] = pll & 0xFF;
+  data[2] = 0xB0;                        // HLSI=1, SSL mid, stereo
+  data[3] = 0x10;                        // XTAL=1 (32.768kHz)
+  data[4] = 0x08;                        // 50µs de-emphasis (UK/EU)
+  Wire.beginTransmission(TEA5767_ADDR);
+  Wire.write(data, 5);
+  Wire.endTransmission();
+}
+
+bool tea5767Read(uint8_t buf[5]) {
+  Wire.requestFrom((uint8_t)TEA5767_ADDR, (uint8_t)5); // explicit cast
+  for (uint8_t i = 0; i < 5 && Wire.available(); i++) buf[i] = Wire.read();
+  return true;
+}
+
+// RSSI (signal level) is in byte3[7:4] -> 0..15
+uint8_t tea5767SignalLevel() {
+  uint8_t r[5]; tea5767Read(r);
+  return (r[3] >> 4) & 0x0F;
+}
+
+// optional “ready” flag: byte0 bit7
+bool tea5767Ready() {
+  uint8_t r[5]; tea5767Read(r);
+  return (r[0] & 0x80) != 0;
+}
+
+void updateLCD() {
+  lcd.setCursor(0, 0);
+  lcd.print("Tuned: ");
+  lcd.print(freqMHz, 1);
+  lcd.print(" MHz   ");
+}
+
+void encISR() {
+  uint8_t a = digitalRead(ENC_A);
+  uint8_t b = digitalRead(ENC_B);
+  uint8_t ab = (a << 1) | b;
+  static const int8_t table[16] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
+  encDelta += table[(lastAB << 2) | ab];
+  lastAB = ab;
+}
+
+void setup() {
+  Wire.begin();
+  pinMode(ENC_A, INPUT_PULLUP);
+  pinMode(ENC_B, INPUT_PULLUP);
+  pinMode(ENC_SW, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(ENC_A), encISR, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENC_B), encISR, CHANGE);
+
+  lcd.begin(16, 2);
+  lcd.print("Initializing...");
+  delay(200);
+
+  tea5767SetFrequency(freqMHz);
+  lcd.clear(); updateLCD();
+  lcd.setCursor(0, 1); lcd.print("Rotate: tune   ");
+}
+
+void loop() {
+  // rotary tuning
+  noInterrupts(); int8_t d = encDelta; encDelta = 0; interrupts();
+  if (d != 0) {
+    freqMHz += d * STEP;
+    if (freqMHz < F_MIN) freqMHz = F_MIN;
+    if (freqMHz > F_MAX) freqMHz = F_MAX;
+    tea5767SetFrequency(freqMHz);
+    updateLCD();
+  }
+
+  // button: auto-seek forward
+  if (digitalRead(ENC_SW) == LOW) {
+    lcd.setCursor(0, 1); lcd.print("Auto-seeking...");
+
+    float start = freqMHz;
+    while (true) {
+      // step forward & wrap
+      freqMHz += STEP;
+      if (freqMHz > F_MAX) freqMHz = F_MIN;
+      tea5767SetFrequency(freqMHz);
+      delay(50);                   // small settle time
+
+      // check signal strength
+      uint8_t lvl = tea5767SignalLevel();
+      if (lvl >= RSSI_THRESHOLD && tea5767Ready()) {
+        updateLCD();
+        lcd.setCursor(0,1);
+        lcd.print("Signal ");
+        lcd.print(lvl);
+        lcd.print("         ");
+        break;
+      }
+
+      // safety: stop if we wrapped around without finding anything
+      if (fabs(freqMHz - start) < 0.001f) {
+        lcd.setCursor(0,1); lcd.print("No station     ");
+        break;
+      }
+    }
+    delay(250); // debounce
+  }
+}
+</code></pre>
+    
+    
+    <h2>📝 Notes</h2>
+    <ul>
+      <li>Rotating the encoder adjusts frequency in <strong>0.1 MHz steps</strong>.</li>
+      <li>Pressing the encoder triggers <strong>auto-seek</strong> to the next strong station.</li>
+      <li>Signal strength is evaluated using the TEA5767’s RSSI reading.</li>
+      <li>Use the amplifier’s physical knob to control volume.</li>
+      <li>Adjust the LCD’s contrast using the 10k potentiometer for best visibility.</li>
+    </ul>
+
+    <h2>💻 Upload the Code</h2>
+    <ol>
+      <li>Connect your Arduino UNO via USB.</li>
+      <li>Open Arduino IDE and select your board + port.</li>
+      <li>Paste the full FM Radio code into the IDE.</li>
+      <li>Click <strong>Upload</strong>.</li>
+      <li>Once uploaded, the LCD will show the frequency. Tune and listen!</li>
+    </ol>
+
+    <p><a href="../projects.html">← Back to Projects</a></p>
+
+    <footer>
+      <p>© 2026 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+    </footer>
+  </div>
+</body>
+</html>
