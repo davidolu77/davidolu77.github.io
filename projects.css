@@ -164,7 +164,7 @@ footer{
   margin-top: 20px;
 }
   
-#ig-icon, #lnkdin-icon{
+#ig-icon, #lnkdin-icon, #email-icon{
   color:black;
   font-size: 20px;
   margin: 0 5px;
@@ -179,3 +179,4 @@ a:hover {
   color: darkgrey;
   text-decoration: underline;
 }
+
