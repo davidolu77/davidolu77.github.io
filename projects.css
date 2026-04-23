@@ -90,6 +90,14 @@ body {
   align-items: flex-start;
 }
 
+.article-content > div p {
+  margin: 0 0 8px 0;
+}
+
+.article-content > div p:last-child {
+  margin-bottom: 0;
+}
+
 .article-thumb {
   width: 200px;
   border-radius: 8px;
