@@ -103,6 +103,23 @@ The site auto-deploys to GitHub Pages when changes are pushed to the main branch
 - SSL enabled via GitHub Pages
 - No build process required - direct HTML serving
 
+## Public Repo Security Guidance
+
+This repository is public, so every committed file should be considered public forever unless history is rewritten and cached copies disappear.
+
+Safe to keep here:
+- HTML, CSS, images, favicons, sitemap, manifest, and normal content assets
+- Google Analytics measurement IDs and other public-facing identifiers
+- The `CNAME` file used by GitHub Pages
+
+Do not keep here:
+- API keys, tokens, passwords, `.env` files, private certificates, or recovery codes
+- Personal documents, invoices, backups, database exports, or unpublished drafts you do not want indexed
+- Source files that contain hidden notes, comments, or metadata you would not want a stranger to read
+
+Operational note:
+- If this file is only for local assistant/editor guidance and you do not want to expose your workflow notes publicly, it can be removed from the repository without affecting the website.
+
 ## Content Categories
 
 The site is organized around these main content themes:
