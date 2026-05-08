@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arduino Tilt Arcade Console</title>
+
+  <link rel="stylesheet" href="/projects.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>Arduino Tilt Arcade Console</h1>
+    <p><small>Published: May 8, 2026</small></p>
+
+    <p>This project is a small tilt-controlled arcade console built using an Arduino Nano, a 128&times;64 OLED display, an MPU-6500 motion sensor, a buzzer, and a single push button.</p>
+
+    <p>By tilting the controller, the player can control games directly on the OLED screen. The final build includes two playable games: Tilt Snake and Space Dodger, complete with sound effects, saved high scores, pause functionality, and per-game calibration.</p>
+
+    <p>The entire system runs on a compact breadboard setup powered by an Arduino Nano.</p>
+
+    <hr>
+
+    <h2>&#128248; Preview</h2>
+    <div class="image-preview">
+      <!-- Add your project preview image here -->
+      <img src="/projects/arduino-tilt-arcade-console-preview.jpg" alt="Arduino Tilt Arcade Console project preview" style="width: 60%; border-radius: 12px;">
+    </div>
+
+    <hr>
+
+    <h2>&#9881;&#65039; How It Works</h2>
+    <ul>
+      <li>The Arduino Nano controls the entire console.</li>
+      <li>A 128&times;64 OLED display shows menus, gameplay, scores, timers, and game-over screens.</li>
+      <li>An MPU-6500-family motion sensor detects tilt movement.</li>
+      <li>At startup, the console calibrates a neutral holding position so movement feels natural.</li>
+      <li>The Arduino continuously reads tilt data from the IMU and converts it into player movement on the screen.</li>
+      <li>A deadzone is used to reduce unwanted drifting from tiny hand movements.</li>
+      <li>A single push button controls menu navigation, starting games, pause/resume, returning to the menu, and recalibration.</li>
+      <li>A passive buzzer provides sound effects for menu navigation, game start, scoring, game over, and new high scores.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#127918; Included Games</h2>
+    <h4>Tilt Snake</h4>
+    <p>Guide the snake using tilt controls while collecting blinking food items. The snake gradually speeds up as your score increases.</p>
+
+    <h4>Space Dodger</h4>
+    <p>Control a small spaceship and avoid incoming asteroids for as long as possible. The difficulty increases over time as asteroid spawning becomes faster and more challenging.</p>
+
+    <hr>
+
+    <h2>&#129520; Components Used</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td>Arduino Nano</td><td>Main microcontroller running the console</td></tr>
+      <tr><td>0.96-inch I2C OLED display</td><td>Displays menus and gameplay</td></tr>
+      <tr><td>MPU-6500 IMU motion sensor</td><td>Detects tilt and movement</td></tr>
+      <tr><td>Passive buzzer</td><td>Plays sound effects</td></tr>
+      <tr><td>Push button</td><td>Controls menu navigation and gameplay</td></tr>
+      <tr><td>Breadboard</td><td>Holds the circuit together</td></tr>
+      <tr><td>Jumper wires</td><td>Connects all components</td></tr>
+      <tr><td>USB cable / power bank</td><td>Powers the system</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128268; Wiring Instructions</h2>
+
+    <h4>OLED Display Wiring</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>OLED Pin</th><th>Arduino Nano Pin</th></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>VCC</td><td>5V</td></tr>
+      <tr><td>SDA</td><td>A4</td></tr>
+      <tr><td>SCL</td><td>A5</td></tr>
+    </table>
+
+    <h4>MPU-6500 Motion Sensor Wiring</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>IMU Pin</th><th>Arduino Nano Pin</th></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>VCC</td><td>5V</td></tr>
+      <tr><td>SDA</td><td>A4</td></tr>
+      <tr><td>SCL</td><td>A5</td></tr>
+    </table>
+
+    <p>Both the OLED and IMU communicate over I2C, so they share the same SDA and SCL pins.</p>
+
+    <h4>Push Button Wiring</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Button Leg</th><th>Arduino Nano Pin</th></tr>
+      <tr><td>One leg</td><td>D2</td></tr>
+      <tr><td>Other leg</td><td>GND</td></tr>
+    </table>
+
+    <p>The button uses <code>INPUT_PULLUP</code>, so it reads HIGH when not pressed and LOW when pressed.</p>
+
+    <h4>Passive Buzzer Wiring</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Buzzer Pin</th><th>Arduino Nano Pin</th></tr>
+      <tr><td>Positive</td><td>D9</td></tr>
+      <tr><td>Negative</td><td>GND</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128230; Installing Libraries</h2>
+    <p>For Arduino IDE users, install these libraries before uploading the code:</p>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Library</th><th>Purpose</th></tr>
+      <tr><td>Adafruit SSD1306</td><td>Controls the OLED display</td></tr>
+      <tr><td>Adafruit GFX Library</td><td>Provides graphics functions</td></tr>
+    </table>
+
+    <h4>Arduino IDE Installation Steps</h4>
+    <ol>
+      <li>Open Arduino IDE.</li>
+      <li>Go to Sketch &gt; Include Library &gt; Manage Libraries.</li>
+      <li>Search for Adafruit SSD1306 and install it.</li>
+      <li>Search for Adafruit GFX Library and install it.</li>
+    </ol>
+
+    <p>The IMU is handled using direct register reads, so the Adafruit MPU6050 library is not required.</p>
+
+    <hr>
+
+    <h2>&#9881;&#65039; Optional: PlatformIO Setup</h2>
+    <p>This project was originally developed using PlatformIO in VS Code. The full project files are available on GitHub here: <a href="https://github.com/davidolu77/arduino-oled-imu-projects/tree/main/arduino-tilt-arcade-console">Arduino Tilt Arcade Console GitHub repository</a>.</p>
+
+    <p>The main files are:</p>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>File</th><th>Purpose</th></tr>
+      <tr><td>src/main.cpp</td><td>Main game logic</td></tr>
+      <tr><td>platformio.ini</td><td>PlatformIO configuration</td></tr>
+      <tr><td>README.md</td><td>Project documentation</td></tr>
+    </table>
+
+    <p>The PlatformIO dependencies used are:</p>
+    <pre><code class="language-ini">lib_deps =
+  adafruit/Adafruit SSD1306
+  adafruit/Adafruit GFX Library</code></pre>
+
+    <hr>
+
+    <h2>&#128640; Uploading the Code</h2>
+
+    <h4>Arduino IDE Users</h4>
+    <ol>
+      <li>Connect the Arduino Nano via USB.</li>
+      <li>Open the project code.</li>
+      <li>Install the required libraries.</li>
+      <li>Select Tools &gt; Board &gt; Arduino Nano.</li>
+      <li>Select Processor &gt; ATmega328P or ATmega328P (Old Bootloader).</li>
+      <li>Select the correct COM port.</li>
+      <li>Click Upload.</li>
+      <li>If uploading fails, try switching to the Old Bootloader processor option.</li>
+    </ol>
+
+    <h4>PlatformIO Users</h4>
+    <ol>
+      <li>Open the project folder in VS Code.</li>
+      <li>Connect the Arduino Nano.</li>
+      <li>Build the project.</li>
+      <li>Upload the project.</li>
+      <li>Open Serial Monitor if needed.</li>
+    </ol>
+    <p>The project was configured with:</p>
+    <pre><code class="language-ini">monitor_speed = 115200</code></pre>
+
+    <hr>
+
+    <h2>&#129534; Arduino Code</h2>
+    <p>The main project code is stored in <code>src/main.cpp</code>. The full code includes OLED rendering, the menu system, motion sensor handling, calibration logic, EEPROM high score saving, game logic, sound effects, and pause/menu controls.</p>
+
+    <p><strong>Note:</strong> The code shown below is only a selected snippet from the project. It is not the full program. For the complete version, visit the GitHub repository:</p>
+    <p><a href="https://github.com/davidolu77/arduino-oled-imu-projects/tree/main/arduino-tilt-arcade-console">Full source code on GitHub</a></p>
+
+    <p style="font-size: 0.8rem; font-weight: bold;">Language: C++</p>
+    <pre><code class="language-cpp line-numbers">#include &lt;Arduino.h&gt;
+#include &lt;EEPROM.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+// Selected snippet only.
+// The full project code includes the complete menu, game logic,
+// OLED rendering, IMU calibration, EEPROM storage, and sound effects.
+
+constexpr uint8_t SCREEN_WIDTH = 128;
+constexpr uint8_t SCREEN_HEIGHT = 64;
+constexpr uint8_t BUTTON_PIN = 2;
+constexpr uint8_t BUZZER_PIN = 9;
+constexpr uint8_t OLED_ADDRESS = 0x3C;
+
+constexpr uint8_t IMU_ADDR_PRIMARY = 0x68;
+constexpr uint8_t IMU_ADDR_SECONDARY = 0x69;
+constexpr uint8_t REG_ACCEL_XOUT_H = 0x3B;
+constexpr float ACCEL_LSB_PER_G = 16384.0f;
+
+enum class AppState { Menu, Playing, GameOver };
+enum class ButtonEvent { None, ShortPress, LongPress, VeryLongPress };
+
+const char *const GAME_NAMES[] = {"Tilt Snake", "Space Dodger"};
+
+bool readAccel(int16_t &x, int16_t &y, int16_t &z) {
+  Wire.beginTransmission(IMU_ADDR_PRIMARY);
+  Wire.write(REG_ACCEL_XOUT_H);
+
+  if (Wire.endTransmission(false) != 0) {
+    return false;
+  }
+
+  if (Wire.requestFrom(static_cast&lt;int&gt;(IMU_ADDR_PRIMARY), 6) != 6) {
+    return false;
+  }
+
+  x = static_cast&lt;int16_t&gt;((Wire.read() &lt;&lt; 8) | Wire.read());
+  y = static_cast&lt;int16_t&gt;((Wire.read() &lt;&lt; 8) | Wire.read());
+  z = static_cast&lt;int16_t&gt;((Wire.read() &lt;&lt; 8) | Wire.read());
+  return true;
+}
+
+void beep(uint16_t frequency, uint16_t durationMs) {
+  tone(BUZZER_PIN, frequency, durationMs);
+}</code></pre>
+
+    <hr>
+
+    <h2>&#128221; Notes</h2>
+    <ul>
+      <li>The project was designed specifically for the Arduino Nano ATmega328P.</li>
+      <li>The OLED display uses a large portion of the Nano's RAM, so memory usage is carefully optimized.</li>
+      <li>Tilt direction depends on sensor orientation. If controls feel wrong, recalibrate the selected game.</li>
+      <li>Calibration values and high scores are saved in EEPROM.</li>
+      <li>The project works from USB laptop power and most 5V power banks.</li>
+      <li>The unfinished fluid simulator was removed from the final version to keep the project stable and within memory limits.</li>
+    </ul>
+
+    <p><a href="../projects.html">&#8592; Back to Projects</a></p>
+
+    <footer>
+      <p>&copy; 2026 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+      <a href="mailto:david@davidolutunde.com"><i id="email-icon" class="fa fa-envelope"></i></a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Prism.highlightAll();
+    });
+  </script>
+</body>
+</html>
