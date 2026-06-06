@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Informed Static Prototype</title>
+    <meta
+      name="description"
+      content="Static visual prototype for the Informed Nigeria-first news summary web MVP."
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Informed home">
+        <span class="brand-mark" aria-hidden="true">I</span>
+        <span>
+          <strong>Informed</strong>
+          <small>Nigeria brief</small>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <label class="search-shell">
+          <span class="sr-only">Search sample stories</span>
+          <input id="searchInput" type="search" placeholder="Search stories">
+        </label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          Dark
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro-band" aria-labelledby="pageTitle">
+        <div class="intro-copy">
+          <p class="eyebrow">Static prototype - sample data only</p>
+          <h1 id="pageTitle">Nigeria Live News Feed</h1>
+          <p>
+            Follow Nigerian news by category, read quick summaries, and open the
+            original sources when you want the full story.
+          </p>
+        </div>
+      </section>
+
+      <nav class="category-bar" aria-label="Story categories">
+        <div id="categoryTabs" class="category-tabs"></div>
+      </nav>
+
+      <section class="feed-shell" aria-labelledby="feedTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Human-reviewed sample feed</p>
+            <h2 id="feedTitle">Top stories</h2>
+          </div>
+          <p id="resultCount" class="result-count" aria-live="polite"></p>
+        </div>
+
+        <div id="storyList" class="story-list"></div>
+      </section>
+
+      <section class="feedback-panel" aria-labelledby="feedbackTitle">
+        <div>
+          <p class="eyebrow">Feedback</p>
+          <h2 id="feedbackTitle">Would you read this again?</h2>
+          <p>
+            This prototype is visual only. Use the prompts to test whether the
+            feed feels clear, fast, and trustworthy.
+          </p>
+        </div>
+
+        <div class="feedback-controls">
+          <div class="choice-row" aria-label="Read again feedback options">
+            <button type="button" data-feedback="Yes">Yes</button>
+            <button type="button" data-feedback="Maybe">Maybe</button>
+            <button type="button" data-feedback="No">No</button>
+          </div>
+
+          <label class="field-label" for="interestInput">
+            Email or WhatsApp interest
+          </label>
+          <input id="interestInput" type="text" placeholder="Optional placeholder">
+          <button id="interestButton" class="primary-button" type="button">
+            Note interest
+          </button>
+          <p id="feedbackMessage" class="feedback-message" aria-live="polite">
+            No responses are saved in this static prototype.
+          </p>
+        </div>
+      </section>
+      <p class="site-return">
+        <a href="/">Back to davidolutunde.com</a>
+      </p>    </main>
+  </body>
+</html>
