@@ -667,15 +667,19 @@ document.querySelectorAll("[data-feedback]").forEach((button) => {
       .querySelectorAll("[data-feedback]")
       .forEach((item) => item.setAttribute("aria-pressed", "false"));
     button.setAttribute("aria-pressed", "true");
-    feedbackMessage.textContent =
-      "Prototype note only: this answer is shown locally and is not saved.";
+    if (feedbackMessage) {
+      feedbackMessage.textContent =
+        "Prototype note only: this answer is shown locally and is not saved.";
+    }
   });
 });
 
-interestButton.addEventListener("click", () => {
-  feedbackMessage.textContent =
-    "Prototype note only: interest capture is visual and does not submit anywhere.";
-});
+if (interestButton) {
+  interestButton.addEventListener("click", () => {
+    feedbackMessage.textContent =
+      "Prototype note only: interest capture is visual and does not submit anywhere.";
+  });
+}
 
 const storedTheme = localStorage.getItem("informed-prototype-theme");
 applyTheme(storedTheme === "dark" ? "dark" : "light");
