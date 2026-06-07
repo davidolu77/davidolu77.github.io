@@ -217,6 +217,16 @@ h3 {
   color: var(--text-secondary);
 }
 
+.prototype-note {
+  max-width: 720px;
+  margin: 12px 0 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
 .category-bar {
   margin: 2px 0 18px;
   overflow: visible;
@@ -405,7 +415,7 @@ h3 {
 
 .story-card.action-inline .read-button::before {
   color: var(--text-muted);
-  content: "·";
+  content: "\00b7";
   margin-right: 8px;
   text-decoration: none;
 }
