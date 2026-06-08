@@ -146,6 +146,7 @@ button {
 .theme-toggle,
 .category-tab,
 .save-button,
+.share-button,
 .choice-row button {
   min-height: 40px;
   border: 1px solid var(--border);
@@ -158,6 +159,7 @@ button {
 .theme-toggle:hover,
 .category-tab:hover,
 .save-button:hover,
+.share-button:hover,
 .choice-row button:hover {
   border-color: var(--primary-green);
 }
@@ -238,6 +240,13 @@ h3 {
   gap: 8px;
 }
 
+.category-tab {
+  border-color: color-mix(in srgb, var(--border) 78%, var(--text-muted));
+  background: color-mix(in srgb, var(--surface) 92%, var(--surface-muted));
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
 .category-tab[aria-pressed="true"] {
   border-color: var(--primary-green);
   background: var(--muted-green);
@@ -305,10 +314,21 @@ h3 {
 }
 
 .category {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: var(--source-green);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.category::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--source-green) 78%, var(--surface));
+  content: "";
 }
 
 .status-label,
@@ -341,6 +361,7 @@ h3 {
   margin: 0 0 8px;
   color: var(--text-muted);
   font-size: 0.84rem;
+  row-gap: 6px;
 }
 
 .freshness-line strong {
@@ -485,7 +506,8 @@ h3 {
   justify-self: end;
 }
 
-.save-button {
+.save-button,
+.share-button {
   display: inline-grid;
   width: 34px;
   min-width: 34px;
@@ -497,6 +519,33 @@ h3 {
   background: transparent;
   font-size: 0.8rem;
   line-height: 1;
+}
+
+.share-button {
+  position: relative;
+  overflow: visible;
+}
+
+.share-icon::before {
+  color: currentColor;
+  content: "\2197";
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.share-button.is-copied {
+  color: var(--primary-green-dark);
+}
+
+.share-status {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 4px);
+  transform: translateX(-50%);
+  color: var(--primary-green-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .bookmark-icon {
@@ -700,6 +749,7 @@ h3 {
   .primary-button,
   .read-button,
   .save-button,
+  .share-button,
   .theme-toggle,
   .category-tab,
   .choice-row button {

@@ -457,11 +457,14 @@ const themeToggle = document.querySelector("#themeToggle");
 const feedbackMessage = document.querySelector("#feedbackMessage");
 const interestButton = document.querySelector("#interestButton");
 
-const READ_MORE_LABEL = "Read more ›";
-const COLLAPSE_LABEL = "Collapse ˅";
+const READ_MORE_LABEL = "Read more &rsaquo;";
+const COLLAPSE_LABEL = "Collapse &#709;";
+const SHARE_COPIED_MS = 1800;
 
 let activeCategory = "All";
 let expandedStoryId = null;
+let copiedStoryId = null;
+let copiedTimer = null;
 const savedStoryIds = new Set();
 
 function getCategories() {
@@ -470,6 +473,50 @@ function getCategories() {
 
 function statusClass(status) {
   return status.toLowerCase().includes("developing") ? "developing" : "";
+}
+
+function getStoryHash(storyId) {
+  return `story-${storyId}`;
+}
+
+function storyFromHash() {
+  const hash = window.location.hash.replace(/^#/, "");
+  if (!hash.startsWith("story-")) return null;
+  const storyId = hash.replace(/^story-/, "");
+  return stories.find((story) => story.id === storyId) || null;
+}
+
+function getStoryShareUrl(story) {
+  const url = new URL("https://davidolutunde.com/informed-prototype/");
+  url.hash = getStoryHash(story.id);
+  return url.toString();
+}
+
+function updateStoryHash(storyId) {
+  const nextUrl = new URL(window.location.href);
+  if (storyId) {
+    nextUrl.hash = getStoryHash(storyId);
+  } else {
+    nextUrl.hash = "";
+  }
+  history.replaceState(null, "", nextUrl);
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.top = "-1000px";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
 }
 
 function visibleStories() {
@@ -547,11 +594,23 @@ function renderStories() {
           <span class="bookmark-icon" aria-hidden="true"></span>
         </button>
       `;
+      const shareButton = `
+        <button
+          class="share-button ${copiedStoryId === story.id ? "is-copied" : ""}"
+          type="button"
+          aria-label="Share story"
+          title="Share story"
+          data-share-id="${story.id}"
+        >
+          <span class="share-icon" aria-hidden="true"></span>
+          <span class="share-status" aria-live="polite">${copiedStoryId === story.id ? "Copied" : ""}</span>
+        </button>
+      `;
 
       return `
         <article
           class="story-card ${isExpanded ? "is-expanded" : ""}"
-          id="card-${story.id}"
+          id="${getStoryHash(story.id)}"
         >
           <div class="card-topline">
             <span class="category">${story.category}</span>
@@ -566,6 +625,7 @@ function renderStories() {
             </span>
             <span class="metadata-actions">
               ${saveButton}
+              ${shareButton}
               ${readMoreButton}
             </span>
           </p>
@@ -609,7 +669,44 @@ function renderStories() {
 
 function toggleStory(storyId) {
   expandedStoryId = expandedStoryId === storyId ? null : storyId;
+  updateStoryHash(expandedStoryId);
   renderStories();
+}
+
+async function shareStory(storyId) {
+  const story = stories.find((item) => item.id === storyId);
+  if (!story) return;
+
+  const shareUrl = getStoryShareUrl(story);
+  const shareData = {
+    title: story.headline,
+    text: `Informed: ${story.headline}`,
+    url: shareUrl
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    await copyText(shareUrl);
+    copiedStoryId = story.id;
+    renderStories();
+    window.clearTimeout(copiedTimer);
+    copiedTimer = window.setTimeout(() => {
+      copiedStoryId = null;
+      renderStories();
+    }, SHARE_COPIED_MS);
+  } catch (error) {
+    if (error && error.name === "AbortError") return;
+    try {
+      await copyText(shareUrl);
+      copiedStoryId = story.id;
+      renderStories();
+    } catch {
+      copiedStoryId = null;
+    }
+  }
 }
 
 function applyTheme(theme) {
@@ -625,6 +722,7 @@ categoryTabs.addEventListener("click", (event) => {
 
   activeCategory = button.dataset.category;
   expandedStoryId = null;
+  updateStoryHash(null);
   renderCategoryTabs();
   renderStories();
 });
@@ -642,6 +740,12 @@ storyList.addEventListener("click", (event) => {
     return;
   }
 
+  const shareButton = event.target.closest("[data-share-id]");
+  if (shareButton) {
+    shareStory(shareButton.dataset.shareId);
+    return;
+  }
+
   const trigger = event.target.closest("[data-story-id]");
   if (!trigger) return;
 
@@ -651,6 +755,7 @@ storyList.addEventListener("click", (event) => {
 
 searchInput.addEventListener("input", () => {
   expandedStoryId = null;
+  updateStoryHash(null);
   renderStories();
 });
 
@@ -681,7 +786,27 @@ if (interestButton) {
   });
 }
 
+window.addEventListener("hashchange", () => {
+  const story = storyFromHash();
+  expandedStoryId = story ? story.id : null;
+  renderStories();
+  if (story) {
+    requestAnimationFrame(() => {
+      document.getElementById(getStoryHash(story.id))?.scrollIntoView({ block: "start" });
+    });
+  }
+});
+
 const storedTheme = localStorage.getItem("informed-prototype-theme");
+const hashedStory = storyFromHash();
+if (hashedStory) {
+  expandedStoryId = hashedStory.id;
+}
 applyTheme(storedTheme === "dark" ? "dark" : "light");
 renderCategoryTabs();
 renderStories();
+if (hashedStory) {
+  requestAnimationFrame(() => {
+    document.getElementById(getStoryHash(hashedStory.id))?.scrollIntoView({ block: "start" });
+  });
+}
