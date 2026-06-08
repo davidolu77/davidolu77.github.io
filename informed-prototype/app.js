@@ -680,7 +680,7 @@ async function shareStory(storyId) {
   const shareUrl = getStoryShareUrl(story);
   const shareData = {
     title: story.headline,
-    text: `Informed: ${story.headline}`,
+    text: `infrmd.news: ${story.headline}`,
     url: shareUrl
   };
 
