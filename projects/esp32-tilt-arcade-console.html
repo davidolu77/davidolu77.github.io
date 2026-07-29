@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 Tilt Arcade Console</title>
+
+  <link rel="stylesheet" href="/projects.css?v=20260729">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>ESP32 Tilt Arcade Console</h1>
+    <p><small>Published: July 27, 2026</small></p>
+
+    <p>This project takes my earlier Arduino Nano tilt consoles and rebuilds them around an ESP32. The extra memory and processing power made it possible to combine four games, a particle fluid simulator, and an animated robot face in one compact OLED system.</p>
+
+    <p>The console is controlled by tilting an MPU-6500 motion sensor. One push button handles the menu and in-game actions, while a passive buzzer provides sound feedback.</p>
+
+    <hr>
+
+    <h2>&#128248; Preview</h2>
+    <div class="image-preview">
+      <img src="/projects/esp32-tilt-arcade-console-preview.jpg" alt="ESP32 Tilt Arcade Console assembled on breadboards with the Tilt Arcade menu displayed on its OLED screen" class="project-preview-image">
+    </div>
+
+    <hr>
+
+    <h2>&#9881;&#65039; How It Works</h2>
+    <ul>
+      <li>The ESP32 runs the menu, all six modes, sound effects, calibration, and saved scores.</li>
+      <li>The OLED and MPU-6500 share the ESP32's I2C bus on GPIO21 and GPIO22.</li>
+      <li>The firmware converts live accelerometer readings into movement or simulated gravity.</li>
+      <li>Each mode stores its own neutral tilt calibration in EEPROM.</li>
+      <li>High scores are saved for Coin Collector, Tilt Snake, and Space Dodger.</li>
+      <li>A single button supports short, long, and very long presses for different actions.</li>
+      <li>The Vector Face reacts to tilt, cycles expressions, blinks, and responds to shaking.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#127918; Games and Modes</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Mode</th><th>Description</th></tr>
+      <tr><td>Tilt Maze</td><td>Guide a ball through maze walls and reach the goal.</td></tr>
+      <tr><td>Coin Collector</td><td>Collect coins against a timer and try to beat the saved high score.</td></tr>
+      <tr><td>Tilt Snake</td><td>Control a growing snake, collect blinking food, and avoid collisions.</td></tr>
+      <tr><td>Space Dodger</td><td>Move a spaceship left and right while avoiding falling asteroids.</td></tr>
+      <tr><td>Fluid Sim</td><td>Tilt the console to change gravity and move 120 simulated particles.</td></tr>
+      <tr><td>Vector Face</td><td>Interact with an animated face featuring gaze, expressions, blinking, and a shake-to-dizzy reaction.</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#129520; Components Used</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td>ESP32 Dev Module</td><td>Runs the console and all six modes</td></tr>
+      <tr><td>128&times;64 I2C OLED display</td><td>Displays the menu, games, simulation, and robot face</td></tr>
+      <tr><td>MPU-6500-family IMU</td><td>Measures tilt and motion</td></tr>
+      <tr><td>Push button</td><td>Controls menu navigation and mode actions</td></tr>
+      <tr><td>Passive buzzer</td><td>Provides sound feedback</td></tr>
+      <tr><td>Breadboard and jumper wires</td><td>Connect the prototype</td></tr>
+      <tr><td>USB cable or power bank</td><td>Powers and programs the ESP32</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128268; Wiring Instructions</h2>
+
+    <h4>OLED Display</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>OLED Pin</th><th>ESP32 Pin</th></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>VCC</td><td>3V3</td></tr>
+      <tr><td>SDA</td><td>GPIO21</td></tr>
+      <tr><td>SCL</td><td>GPIO22</td></tr>
+    </table>
+
+    <h4>MPU-6500 Motion Sensor</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>IMU Pin</th><th>ESP32 Pin</th></tr>
+      <tr><td>GND</td><td>GND</td></tr>
+      <tr><td>VCC</td><td>3V3</td></tr>
+      <tr><td>SDA</td><td>GPIO21</td></tr>
+      <tr><td>SCL</td><td>GPIO22</td></tr>
+    </table>
+
+    <h4>Push Button and Buzzer</h4>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Connection</th></tr>
+      <tr><td>Button leg 1</td><td>GPIO18</td></tr>
+      <tr><td>Button leg 2</td><td>GND</td></tr>
+      <tr><td>Buzzer positive</td><td>GPIO25</td></tr>
+      <tr><td>Buzzer negative</td><td>GND</td></tr>
+    </table>
+
+    <p>The button uses <code>INPUT_PULLUP</code>, so it reads LOW when pressed. The tested IMU was mounted with its X arrow facing upward and its Y arrow facing left.</p>
+
+    <hr>
+
+    <h2>&#128230; Libraries</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Library</th><th>Purpose</th></tr>
+      <tr><td>Adafruit SSD1306</td><td>Controls the OLED display</td></tr>
+      <tr><td>Adafruit GFX Library</td><td>Provides graphics and drawing functions</td></tr>
+      <tr><td>Wire</td><td>Provides I2C communication</td></tr>
+      <tr><td>EEPROM</td><td>Stores calibration values and high scores</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128640; Building and Uploading</h2>
+    <ol>
+      <li>Install PlatformIO in VS Code.</li>
+      <li>Clone or download the project repository.</li>
+      <li>Open the repository folder in VS Code.</li>
+      <li>Connect the ESP32 by USB.</li>
+      <li>Build the project with PlatformIO.</li>
+      <li>Select the detected serial port and upload the firmware.</li>
+      <li>Hold the console in a comfortable position and recalibrate each mode if needed.</li>
+    </ol>
+
+    <pre><code class="language-ini">[env:esp32dev]
+platform = espressif32
+board = esp32dev
+framework = arduino
+monitor_speed = 115200
+lib_deps =
+  adafruit/Adafruit SSD1306
+  adafruit/Adafruit GFX Library</code></pre>
+
+    <hr>
+
+    <h2>&#129534; Selected Code</h2>
+    <p>The full firmware is available on GitHub. This selected snippet shows how the six modes are registered in the menu.</p>
+
+    <pre><code class="language-cpp line-numbers">constexpr uint8_t GAME_MAZE = 0;
+constexpr uint8_t GAME_COIN = 1;
+constexpr uint8_t GAME_SNAKE = 2;
+constexpr uint8_t GAME_DODGER = 3;
+constexpr uint8_t GAME_FLUID = 4;
+constexpr uint8_t GAME_FACE = 5;
+constexpr uint8_t GAME_COUNT = 6;
+
+const char *const GAME_NAMES[GAME_COUNT] = {
+    "Tilt Maze",
+    "Coin Collector",
+    "Tilt Snake",
+    "Space Dodger",
+    "Fluid Sim",
+    "Vector Face",
+};</code></pre>
+
+    <p><a href="https://github.com/davidolu77/esp32-oled-imu-projects">View the complete ESP32 project on GitHub</a></p>
+
+    <hr>
+
+    <h2>&#128221; Notes</h2>
+    <ul>
+      <li>The tested board was an ESP32 Dev Module with an ESP32-D0WD-V3 chip, 4 MB flash, and a CH340 USB interface.</li>
+      <li>The OLED address is <code>0x3C</code>, and the IMU is checked at <code>0x68</code> and <code>0x69</code>.</li>
+      <li>Use 3.3 V for the OLED and IMU in this ESP32 build.</li>
+      <li>The ESP32 provides much more memory headroom than the Arduino Nano versions.</li>
+      <li>The repository contains the complete firmware but currently requires a final licensing review before reuse terms are formally stated.</li>
+    </ul>
+
+    <p><a href="../projects.html">&#8592; Back to Projects</a></p>
+
+    <footer>
+      <p>&copy; 2026 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+      <a href="mailto:david@davidolutunde.com"><i id="email-icon" class="fa fa-envelope"></i></a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Prism.highlightAll();
+    });
+  </script>
+</body>
+</html>

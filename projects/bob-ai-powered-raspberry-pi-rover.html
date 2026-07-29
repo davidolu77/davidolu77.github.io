@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bob: AI-Powered Raspberry Pi Rover</title>
+
+  <link rel="stylesheet" href="/projects.css?v=20260729">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>Bob: AI-Powered Raspberry Pi Rover</h1>
+    <p><small>Published: July 27, 2026</small></p>
+
+    <p>Bob is an ongoing AI-powered mobile rover that combines a Raspberry Pi, Arduino motor control, computer vision, voice interaction, an animated robot face, and a custom browser dashboard in one modular robotics platform.</p>
+
+    <p>I started Bob as a hands-on way to explore how embedded electronics, software, artificial intelligence, and physical hardware can work together. Rather than building only a remote-controlled car or a screen-based chatbot, my goal is to create a robot that can move, see, listen, speak, respond conversationally, and gradually develop a recognisable personality.</p>
+
+    <p><strong>Current status:</strong> Functional prototype under active development.</p>
+
+    <hr>
+
+    <h2>&#128248; Preview</h2>
+    <div class="project-carousel" data-carousel aria-label="Bob AI rover gallery">
+      <div class="carousel-viewport" data-carousel-viewport tabindex="0">
+        <figure class="carousel-slide is-active">
+          <img src="/projects/bob-ai-rover-front.jpg" alt="Front view of Bob AI rover with its animated face display, camera, speaker, and handheld controller" loading="lazy">
+          <figcaption>Front view with remote controller</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="/projects/bob-ai-rover-left.jpg" alt="Left-side view of Bob AI rover showing its Raspberry Pi, wheeled chassis, camera, and display assembly" loading="lazy">
+          <figcaption>Left-side view</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="/projects/bob-ai-rover-right.jpg" alt="Right-side view of Bob AI rover showing its Raspberry Pi, battery pack, display, and chassis wiring" loading="lazy">
+          <figcaption>Right-side view</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="/projects/bob-ai-rover-top.jpg" alt="Top-down view of Bob AI rover showing the Raspberry Pi, camera ribbon cable, servos, battery pack, and display" loading="lazy">
+          <figcaption>Top-down electronics view</figcaption>
+        </figure>
+      </div>
+      <div class="carousel-controls">
+        <button type="button" class="carousel-button" data-carousel-previous aria-label="Show previous image" title="Previous image">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="carousel-button" data-carousel-toggle aria-label="Pause automatic slideshow" aria-pressed="false" title="Pause slideshow">
+          <i class="fa fa-pause" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="carousel-button" data-carousel-next aria-label="Show next image" title="Next image">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>&#127919; Project Vision</h2>
+    <p>Bob is designed as a practical robotics and embedded-systems learning platform rather than a finished consumer robot. Its modular design lets me improve individual systems without rebuilding the entire rover.</p>
+    <ul>
+      <li>Move around using direct dashboard or controller commands.</li>
+      <li>Stream video and react to camera input.</li>
+      <li>Recognise a custom "Hey Bob" wake word.</li>
+      <li>Accept typed or spoken questions and instructions.</li>
+      <li>Reply using conversational AI and local text-to-speech.</li>
+      <li>Show expressions and status through an animated face.</li>
+      <li>Progress toward safer autonomous movement and obstacle awareness.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#9881;&#65039; How Bob Works</h2>
+    <p>Bob separates high-level intelligence from direct hardware control. The Raspberry Pi handles the dashboard, camera, audio, AI, and command validation. An Arduino-compatible controller handles the motors and pan-and-tilt servos through a small serial protocol.</p>
+
+    <pre><code class="language-text">Browser, microphone, wake word, or remote message
+  -> Raspberry Pi dashboard and deterministic command parser
+  -> conversational request OR allow-listed robot command
+  -> OpenClaw with local Ollama fallback for conversation
+  -> Piper text-to-speech for spoken responses
+  -> bounded serial command for Arduino-controlled movement</code></pre>
+
+    <p>Conversational model output is never trusted as a direct motor command. Physical actions must pass through deterministic application logic before a short allow-listed command is sent to the Arduino.</p>
+
+    <hr>
+
+    <h2>&#9989; Current Working Features</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Feature</th><th>Current Capability</th></tr>
+      <tr><td>Rover movement</td><td>Forward, backward, pivot left, pivot right, stop, and five speed levels through an Arduino serial protocol</td></tr>
+      <tr><td>Motor safety</td><td>Explicit stop command and a one-second Arduino motor inactivity failsafe</td></tr>
+      <tr><td>Dashboard</td><td>Authenticated Flask interface for status, movement, camera, chat, and robot controls</td></tr>
+      <tr><td>Conversational AI</td><td>OpenClaw is the primary route, with local Ollama retained as a fallback</td></tr>
+      <tr><td>Speech</td><td>USB microphone capture, speech recognition, local Piper text-to-speech, and browser speech fallback</td></tr>
+      <tr><td>Camera</td><td>Lazy Picamera2 capture with OpenCV overlays, motion processing, and dashboard streaming</td></tr>
+      <tr><td>Robot face</td><td>Browser-rendered vector face with expressions, gaze, listening, thinking, speaking, and sleep states</td></tr>
+      <tr><td>Power monitoring</td><td>UPS integration detects its I2C fuel-gauge interface</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128679; Implemented but Not Fully Active</h2>
+    <ul>
+      <li>The Arduino serial device was disconnected during the latest repository audit, so physical driving was not re-verified at that time.</li>
+      <li>Camera and vision support was enabled, but the stream was idle during the audit.</li>
+      <li>The custom wake-word system was installed but switched off.</li>
+      <li>Game-controller support was configured, but no controller was connected and runtime control was disabled.</li>
+      <li>End-to-end speech latency varies with network conditions and assistant response time.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#129520; Main Hardware</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Role</th><th>Status</th></tr>
+      <tr><td>Raspberry Pi 5</td><td>Dashboard, AI, camera, speech, power monitoring, and serial communication</td><td>Confirmed</td></tr>
+      <tr><td>Arduino-compatible AVR board</td><td>Bounded motor and servo control</td><td>Working role confirmed; exact installed board still being verified</td></tr>
+      <tr><td>Four DC motors and rover chassis</td><td>Physical movement</td><td>Confirmed</td></tr>
+      <tr><td>Motor Shield V1-compatible driver</td><td>Controls four motor channels using the AFMotor API</td><td>Software interface confirmed; exact hardware revision being verified</td></tr>
+      <tr><td>Raspberry Pi Camera Module 3</td><td>Video, motion, and vision input</td><td>Confirmed</td></tr>
+      <tr><td>Pan-and-tilt servo mount</td><td>Moves the camera horizontally and vertically</td><td>Confirmed with ongoing reliability work</td></tr>
+      <tr><td>USB microphone and speaker</td><td>Voice input and spoken responses</td><td>Confirmed</td></tr>
+      <tr><td>7-inch HDMI touchscreen</td><td>Local dashboard and robot-face display</td><td>Confirmed</td></tr>
+      <tr><td>20,000 mAh power bank and UPS arrangement</td><td>Portable Raspberry Pi power</td><td>Used; final power architecture still being refined</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128187; Software and AI System</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Technology</th><th>Purpose</th></tr>
+      <tr><td>Python and Flask</td><td>Dashboard, API endpoints, hardware bridge, and system status</td></tr>
+      <tr><td>OpenClaw</td><td>Primary conversational gateway and remote integration</td></tr>
+      <tr><td>Ollama</td><td>Local conversational fallback and experimental local vision descriptions</td></tr>
+      <tr><td>Picamera2 and OpenCV</td><td>Camera capture, overlays, motion, and experimental tracking</td></tr>
+      <tr><td>SpeechRecognition</td><td>Speech-to-text with explicit remote-recognition consent</td></tr>
+      <tr><td>Piper</td><td>Local text-to-speech</td></tr>
+      <tr><td>OpenWakeWord</td><td>Custom "Hey Bob" activation experiments</td></tr>
+      <tr><td>Arduino C++</td><td>Real-time motor and servo control</td></tr>
+      <tr><td>HTML, CSS, and JavaScript</td><td>Dashboard and animated robot-face interfaces</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#127908; Voice and "Hey Bob"</h2>
+    <p>The latest audited wake-word configuration uses a custom OpenWakeWord model with thresholding, cooldown control, and suppression while Bob is speaking. Test mode is deliberately non-actioning: detecting the wake word during a test cannot activate speech, AI, the camera, or the motors.</p>
+
+    <p>The working voice path records bounded microphone input, converts speech to text, routes the request to the assistant, cleans and limits the reply, then speaks it through a local Piper voice. Recordings, private datasets, transcripts, and trained model files are not published.</p>
+
+    <hr>
+
+    <h2>&#128064; Robot Face and Personality</h2>
+    <p>Bob's active face is rendered in a browser and served by the dashboard. It supports idle, awake, listening, thinking, speaking, confused, happy, searching, startled, bored, and sleeping states. Gaze values are clamped to a safe range, temporary expressions return to neutral, and the display enters a sleep presentation after inactivity.</p>
+
+    <p>The face is more than decoration: it makes Bob's internal state easier to understand while giving the rover a recognisable personality.</p>
+
+    <hr>
+
+    <h2>&#128663; Motor and Camera Protocol</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Command</th><th>Action</th></tr>
+      <tr><td><code>F</code></td><td>Move forward</td></tr>
+      <tr><td><code>B</code></td><td>Move backward</td></tr>
+      <tr><td><code>L</code> / <code>R</code></td><td>Pivot left or right</td></tr>
+      <tr><td><code>S</code></td><td>Stop immediately</td></tr>
+      <tr><td><code>Q</code> / <code>E</code></td><td>Move camera pan angle</td></tr>
+      <tr><td><code>U</code> / <code>D</code></td><td>Move camera tilt angle</td></tr>
+      <tr><td><code>C</code></td><td>Centre the camera</td></tr>
+      <tr><td><code>V1</code> to <code>V5</code></td><td>Select one of five movement speeds</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#128300; Experimental and Planned Features</h2>
+    <ul>
+      <li>More reliable custom wake-word evaluation in Bob's real acoustic environment.</li>
+      <li>Local speech recognition to reduce reliance on external services.</li>
+      <li>Improved object detection, face tracking, and vision-language descriptions.</li>
+      <li>Ultrasonic sensing and cautious obstacle avoidance.</li>
+      <li>Safer autonomous navigation with clear manual override boundaries.</li>
+      <li>A more robust power-distribution and battery-monitoring system.</li>
+      <li>Improved event-driven coordination between voice, face, camera, and movement.</li>
+      <li>Accessibility and kiosk-mode improvements for the local display.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#9888;&#65039; Safety and Privacy</h2>
+    <ul>
+      <li>Motor tests begin with the wheels raised and an independent power disconnect within reach.</li>
+      <li>Natural-language output cannot send arbitrary serial bytes or unbounded movement durations.</li>
+      <li>Camera, movement, serial, and administrative controls remain authenticated and private.</li>
+      <li>Voice recordings, conversations, biometric images, credentials, and private network information are excluded from the public reference material.</li>
+      <li>The source repository remains private while licensing, dashboard credentials, exact wiring, and hardware details receive a final review.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#128221; Notes</h2>
+    <ul>
+      <li>Bob is a functional prototype, not a finished autonomous robot.</li>
+      <li>Some reference firmware improvements have compiled successfully but have not yet been flashed to the live rover.</li>
+      <li>Older standalone speech, camera, wake-word, and face experiments are treated as historical work rather than current supported paths.</li>
+      <li>This page will be updated as more hardware is confirmed and new features move from experimental to working.</li>
+    </ul>
+
+    <p><a href="../projects.html">&#8592; Back to Projects</a></p>
+
+    <footer>
+      <p>&copy; 2026 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+      <a href="mailto:david@davidolutunde.com"><i id="email-icon" class="fa fa-envelope"></i></a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Prism.highlightAll();
+    });
+  </script>
+  <script src="/projects-carousel.js"></script>
+</body>
+</html>

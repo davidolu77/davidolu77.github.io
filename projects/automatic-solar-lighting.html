@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatic Solar Lighting</title>
+
+  <link rel="stylesheet" href="/projects.css?v=20260729">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png">
+
+  <!-- Prism.js syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FBHPT4MSD0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FBHPT4MSD0');
+  </script>
+</head>
+
+<body>
+  <div id="projects-article">
+    <h1>Automatic Solar Lighting</h1>
+    <p><small>Published: July 27, 2026</small></p>
+
+    <p>This Year 2 team engineering project involved designing, building, and testing a self-contained outdoor lighting system powered by solar energy. The system generates energy during the day, stores it in a rechargeable battery, and automatically provides lighting when ambient light falls.</p>
+
+    <p>The complete design brings together photovoltaic generation, battery charging and protection, voltage regulation, Arduino-based sensing, load switching, and an outdoor enclosure. It was developed as a practical proof-of-concept for pathway, garden, and off-grid lighting applications.</p>
+
+    <p><strong>My role:</strong> Systems &amp; Electronics Lead. My work focused on circuit design, engineering calculations, electronic component integration, and connecting the theoretical system design to the physical hardware.</p>
+
+    <hr>
+
+    <h2>&#128248; Preview</h2>
+    <div class="project-carousel" data-carousel aria-label="Automatic Solar Lighting component gallery">
+      <div class="carousel-viewport" data-carousel-viewport tabindex="0">
+        <figure class="carousel-slide is-active">
+          <img src="/projects/automatic-solar-lighting-electronics.jpg" alt="Automatic Solar Lighting battery pack, charging modules, Arduino Nano, and controller electronics" loading="lazy">
+          <figcaption>Power and controller electronics</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="/projects/automatic-solar-lighting-ldr.jpg" alt="Close-up of the light-dependent resistor sensor module used to detect ambient light" loading="lazy">
+          <figcaption>Ambient-light sensor module</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="/projects/automatic-solar-lighting-led-ring.jpg" alt="Close-up of the circular 12-pixel NeoPixel light used in the solar lighting system" loading="lazy">
+          <figcaption>12-pixel NeoPixel light</figcaption>
+        </figure>
+      </div>
+      <div class="carousel-controls">
+        <button type="button" class="carousel-button" data-carousel-previous aria-label="Show previous image" title="Previous image">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="carousel-button" data-carousel-toggle aria-label="Pause automatic slideshow" aria-pressed="false" title="Pause slideshow">
+          <i class="fa fa-pause" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="carousel-button" data-carousel-next aria-label="Show next image" title="Next image">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>&#9881;&#65039; System Overview</h2>
+    <p>The project was developed in two connected stages: a full 12V outdoor lighting system and a compact Arduino, LDR, and NeoPixel demonstrator used to refine the sensing and gradual-brightness control. The sections below explain how each stage contributed to the final prototype.</p>
+
+    <h3>Full Outdoor Lighting Design</h3>
+    <ol>
+      <li>A 20W photovoltaic panel converts sunlight into DC electrical energy.</li>
+      <li>A 10A PWM solar charge controller regulates the panel output and charges the 12V battery safely.</li>
+      <li>The battery supplies the 12V lighting load and also feeds an LM2596 buck converter.</li>
+      <li>The buck converter steps the battery voltage down to a regulated 5V supply for the Arduino Nano and sensing electronics.</li>
+      <li>An LDR module measures ambient light and sends an analogue signal to the Arduino.</li>
+      <li>The Arduino applies the control logic and drives a logic-level N-channel MOSFET, keeping the high-current lighting load away from the microcontroller.</li>
+      <li>During dusk and dawn, PWM control allows the light output to change gradually instead of switching abruptly.</li>
+    </ol>
+
+    <h3>Arduino Control Demonstrator</h3>
+    <ul>
+      <li>An LDR measures the surrounding light level through analogue pin A0.</li>
+      <li>The Arduino maps the sensor reading to a brightness value between 0 and 255.</li>
+      <li>The mapped value is constrained to prevent invalid brightness levels.</li>
+      <li>The program moves toward the target in three-step brightness increments.</li>
+      <li>All 12 NeoPixels display white light at the calculated brightness.</li>
+      <li>Sensor readings are printed to Serial Monitor for testing and calibration.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#129520; Full System Components</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Component</th><th>Specification</th><th>Purpose</th></tr>
+      <tr><td>Photovoltaic panel</td><td>20W, 12V nominal</td><td>Generates electrical energy from daylight</td></tr>
+      <tr><td>Solar charge controller</td><td>10A PWM</td><td>Regulates charging and protects the battery from overcharge</td></tr>
+      <tr><td>Prototype battery</td><td>12V, 7Ah sealed lead-acid</td><td>Stores energy for night-time operation</td></tr>
+      <tr><td>Arduino Nano</td><td>5V microcontroller</td><td>Reads the sensor and executes the automatic lighting logic</td></tr>
+      <tr><td>LM2596 buck converter</td><td>12V to regulated 5V</td><td>Provides a safe supply for the Arduino and sensing circuit</td></tr>
+      <tr><td>LDR sensor module</td><td>Analogue output</td><td>Measures ambient light for day/night detection</td></tr>
+      <tr><td>N-channel MOSFET</td><td>Logic-level, low-side switch</td><td>Allows the Arduino to control the higher-current lighting load</td></tr>
+      <tr><td>LED floodlight</td><td>10W, 12-24V DC</td><td>Provides the main outdoor illumination</td></tr>
+      <tr><td>Outdoor enclosure</td><td>IP65 with cable glands</td><td>Protects the electronics from dust and water ingress</td></tr>
+    </table>
+
+    <p>The engineering calculations initially identified a 20Ah SLA battery for greater autonomy. A smaller 7Ah battery was selected for the scaled prototype because of cost, size, and component availability.</p>
+
+    <hr>
+
+    <h2>&#128268; Wiring and Interconnections</h2>
+    <h3>Outdoor System</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>From</th><th>To</th><th>Purpose</th></tr>
+      <tr><td>Solar panel</td><td>Solar charge controller input</td><td>Transfers generated solar energy</td></tr>
+      <tr><td>Charge controller</td><td>12V battery</td><td>Provides regulated battery charging</td></tr>
+      <tr><td>12V battery</td><td>LM2596 input</td><td>Supplies the control-power regulator</td></tr>
+      <tr><td>LM2596 regulated output</td><td>Arduino Nano 5V supply</td><td>Powers the microcontroller and sensing circuit</td></tr>
+      <tr><td>LDR analogue output</td><td>Arduino analogue input</td><td>Provides the ambient-light reading</td></tr>
+      <tr><td>Arduino control output</td><td>MOSFET gate</td><td>Controls the lighting load using PWM</td></tr>
+      <tr><td>Battery, MOSFET stage, and LED</td><td>12V lighting circuit</td><td>Delivers switched power to the floodlight</td></tr>
+    </table>
+
+    <h3>Control Demonstrator Pin Mapping</h3>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Connection</th><th>Arduino Pin</th></tr>
+      <tr><td>12-pixel NeoPixel data input</td><td>D6</td></tr>
+      <tr><td>LDR analogue signal</td><td>A0</td></tr>
+    </table>
+
+    <p>Critical connections were soldered and insulated with heat-shrink tubing. Terminal blocks were used where appropriate, and 22 AWG wiring was selected for the low-voltage prototype. Power, control, and load wiring were routed separately inside the enclosure to simplify testing and maintenance.</p>
+
+    <hr>
+
+    <h2>&#128736; Build Process</h2>
+    <ol>
+      <li><strong>Design and sizing:</strong> The team calculated the lighting demand, battery capacity, and solar-panel requirement before selecting practical prototype components.</li>
+      <li><strong>Control prototyping:</strong> The Arduino, LDR, and switching circuit were tested on a breadboard before being connected to the final power hardware.</li>
+      <li><strong>Power assembly:</strong> The panel, charge controller, battery, and LM2596 regulator were connected and checked independently.</li>
+      <li><strong>Voltage calibration:</strong> The LM2596 output was adjusted and verified with a multimeter before the Arduino was connected.</li>
+      <li><strong>Permanent integration:</strong> The control electronics were soldered, insulated, and connected to the lighting stage.</li>
+      <li><strong>Outdoor assembly:</strong> The electronics were installed in an IP65 enclosure with waterproof cable glands and an externally positioned LDR.</li>
+    </ol>
+
+    <hr>
+
+    <h2>&#9989; Testing and Results</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Test</th><th>Measured Result</th><th>Outcome</th></tr>
+      <tr><td>Solar charging</td><td>Battery increased from approximately 12.2V to 13.5-14.0V; sustained charging was approximately 13.8V</td><td>Charge controller operated within the expected SLA charging range</td></tr>
+      <tr><td>Night-time runtime</td><td>Approximately 6-8 hours, averaging about 6.6 hours across seven nights</td><td>Met the scaled prototype target</td></tr>
+      <tr><td>Day/night switching</td><td>Approximately 4.5V in bright light, 0.45V in low light, and a 2.5V transition region</td><td>Stable automatic switching after threshold tuning</td></tr>
+      <tr><td>Lighting output</td><td>Stable brightness with no visible flicker during the runtime test</td><td>Power delivery and switching remained stable</td></tr>
+      <tr><td>Outdoor enclosure</td><td>No internal moisture, condensation, cable damage, or visible degradation during winter testing</td><td>IP65 enclosure and cable sealing passed the test</td></tr>
+    </table>
+
+    <p>Initial false triggering from brief shadows was reduced by refining the light threshold, adding a short control delay, and improving the physical position of the sensor.</p>
+
+    <hr>
+
+    <h2>&#128230; Library</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <tr><th>Library</th><th>Purpose</th></tr>
+      <tr><td>Adafruit NeoPixel</td><td>Controls the 12 addressable LEDs</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>&#129534; Arduino Control Code</h2>
+    <p>This compact control sketch demonstrates how the LDR reading is converted into a smooth brightness level for the 12-pixel NeoPixel light. The full outdoor system uses the same sensing principle with a MOSFET switching stage for its 12V lighting load.</p>
+    <pre><code class="language-cpp line-numbers">#include &lt;Adafruit_NeoPixel.h&gt;
+
+#define LED_PIN 6
+#define NUM_LEDS 12
+#define LDR_PIN A0
+
+Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+int currentBrightness = 0;
+
+void setup() {
+  strip.begin();
+  strip.show();
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(LDR_PIN);
+  Serial.println(ldrValue);
+
+  int targetBrightness = map(ldrValue, 500, 1000, 0, 255);
+  targetBrightness = constrain(targetBrightness, 0, 255);
+
+  if (currentBrightness &lt; targetBrightness) {
+    currentBrightness += 3;
+  } else if (currentBrightness &gt; targetBrightness) {
+    currentBrightness -= 3;
+  }
+
+  strip.setBrightness(currentBrightness);
+
+  for (int i = 0; i &lt; NUM_LEDS; i++) {
+    strip.setPixelColor(i, strip.Color(255, 255, 255));
+  }
+
+  strip.show();
+  delay(30);
+}</code></pre>
+
+    <hr>
+
+    <h2>&#128100; My Contribution</h2>
+    <p>As Systems &amp; Electronics Lead, I was responsible for designing and integrating the circuit components, supporting the engineering calculations, and helping translate the planned architecture into a working physical system. This included:</p>
+    <ul>
+      <li>Planning the power, control, sensing, and load subsystems</li>
+      <li>Supporting component selection and electrical sizing</li>
+      <li>Integrating the solar, battery, regulation, sensing, and lighting hardware</li>
+      <li>Checking voltage levels, polarity, connection integrity, and safe operation</li>
+      <li>Supporting prototype assembly, soldering, troubleshooting, and system testing</li>
+    </ul>
+
+    <p>The software and wider project work were completed collaboratively, with responsibilities shared across the team.</p>
+
+    <hr>
+
+    <h2>&#9888;&#65039; Challenges and Safety</h2>
+    <ul>
+      <li>The LDR initially responded to brief shadows and artificial light. Threshold tuning and sensor repositioning produced more stable switching.</li>
+      <li>An incorrect buck-converter input polarity was detected with a multimeter before power was applied, preventing component damage.</li>
+      <li>Early Arduino soldering created bridges between closely spaced pins. The joints were cleaned, reheated, and reapplied.</li>
+      <li>Longer conductors were fitted during enclosure integration to remove mechanical strain from connections.</li>
+      <li>The regulator output was calibrated before connection to the 5V electronics.</li>
+      <li>Soldered joints, heat-shrink insulation, terminal blocks, cable glands, and battery charging protection were used to reduce electrical and environmental risk.</li>
+    </ul>
+
+    <hr>
+
+    <h2>&#128221; Limitations and Future Improvements</h2>
+    <ul>
+      <li>The 7Ah prototype battery provided less autonomy than the 20Ah design calculation.</li>
+      <li>An LDR is inexpensive and simple but remains sensitive to shadows, reflections, and nearby artificial light.</li>
+      <li>The PWM charge controller does not extract as much energy as an MPPT controller under changing irradiance.</li>
+      <li>The enclosure passed short-term winter testing, but long-term UV exposure and thermal cycling were not evaluated.</li>
+      <li>A future version could add a three-position OFF / AUTO / MANUAL ON switch for isolation, normal operation, and manual fallback.</li>
+      <li>Further improvements could include MPPT charging, a larger or higher-energy-density battery, a digital lux sensor, adaptive thresholds, and remote monitoring.</li>
+    </ul>
+
+    <p><a href="../projects.html">&#8592; Back to Projects</a></p>
+
+    <footer>
+      <p>&copy; 2026 David Olutunde</p>
+      <a href="https://www.instagram.com/buildwitdavid/"><i id="ig-icon" class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/david-olutunde/"><i id="lnkdin-icon" class="fa fa-linkedin"></i></a>
+      <a href="mailto:david@davidolutunde.com"><i id="email-icon" class="fa fa-envelope"></i></a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Prism.highlightAll();
+    });
+  </script>
+  <script src="/projects-carousel.js"></script>
+</body>
+</html>
