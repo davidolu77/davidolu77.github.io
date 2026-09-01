@@ -49,7 +49,7 @@
 
 .article-menu-button {
   left: max(16px, env(safe-area-inset-left));
-  display: none;
+  display: inline-flex;
 }
 
 .article-drawer-backdrop {
@@ -166,10 +166,6 @@ body.article-drawer-open {
 }
 
 @media (max-width: 760px) {
-  .article-menu-button {
-    display: inline-flex;
-  }
-
   .article-share-button {
     width: 44px;
     padding: 0;

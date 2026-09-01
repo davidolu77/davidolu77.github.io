@@ -42,7 +42,7 @@
   function init() {
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/article-tools.css?v=20260817";
+    stylesheet.href = "/article-tools.css?v=20260901";
     document.head.appendChild(stylesheet);
 
     const menuButton = document.createElement("button");
